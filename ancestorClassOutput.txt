@@ -1,0 +1,210 @@
+OntModel created
+Language profile:	 OWL DL
+Storage model:		 in-memory
+Reasoner:		 rule-based reasoner with OWL rules
+...................................................................................................
+
+Class Human created
+...................................................................................................
+Human                                   equivalentClass                         Human.
+Human                                   subClassOf                              Human.
+Human                                   subClassOf                              Resource.
+Human                                   subClassOf                              Thing.
+Human                                   type                                    Class.
+Human                                   type                                    Class.
+Human                                   type                                    Resource.
+...................................................................................................
+
+5 humans created
+...................................................................................................
+Human                                   equivalentClass                         Human.
+Human                                   subClassOf                              Human.
+Human                                   subClassOf                              Resource.
+Human                                   subClassOf                              Thing.
+Human                                   type                                    Class.
+Human                                   type                                    Class.
+Human                                   type                                    Resource.
+Human1                                  sameAs                                  Human1.
+Human1                                  type                                    Human.
+Human1                                  type                                    Resource.
+Human1                                  type                                    Thing.
+Human2                                  sameAs                                  Human2.
+Human2                                  type                                    Human.
+Human2                                  type                                    Resource.
+Human2                                  type                                    Thing.
+Human3                                  sameAs                                  Human3.
+Human3                                  type                                    Human.
+Human3                                  type                                    Resource.
+Human3                                  type                                    Thing.
+Human4                                  sameAs                                  Human4.
+Human4                                  type                                    Human.
+Human4                                  type                                    Resource.
+Human4                                  type                                    Thing.
+Human5                                  sameAs                                  Human5.
+Human5                                  type                                    Human.
+Human5                                  type                                    Resource.
+Human5                                  type                                    Thing.
+...................................................................................................
+
+Transitive property hasAncestor created
+...................................................................................................
+Human                                   equivalentClass                         Human.
+Human                                   subClassOf                              Human.
+Human                                   subClassOf                              Resource.
+Human                                   subClassOf                              Thing.
+Human                                   type                                    Class.
+Human                                   type                                    Class.
+Human                                   type                                    Resource.
+Human1                                  sameAs                                  Human1.
+Human1                                  type                                    Human.
+Human1                                  type                                    Resource.
+Human1                                  type                                    Thing.
+Human2                                  sameAs                                  Human2.
+Human2                                  type                                    Human.
+Human2                                  type                                    Resource.
+Human2                                  type                                    Thing.
+Human3                                  sameAs                                  Human3.
+Human3                                  type                                    Human.
+Human3                                  type                                    Resource.
+Human3                                  type                                    Thing.
+Human4                                  sameAs                                  Human4.
+Human4                                  type                                    Human.
+Human4                                  type                                    Resource.
+Human4                                  type                                    Thing.
+Human5                                  sameAs                                  Human5.
+Human5                                  type                                    Human.
+Human5                                  type                                    Resource.
+Human5                                  type                                    Thing.
+hasAncestor                             subPropertyOf                           hasAncestor.
+hasAncestor                             type                                    ObjectProperty.
+hasAncestor                             type                                    Property.
+hasAncestor                             type                                    Resource.
+hasAncestor                             type                                    TransitiveProperty.
+...................................................................................................
+
+Two ancestor chains have been created
+:Human3 :hasAncestor :Human2.
+:Human2 :hasAncestor :Human1.
+:Human5 :hasAncestor :Human4.
+:Human4 :hasAncestor :Human1.
+...................................................................................................
+
+Adding the transitive properties
+...................................................................................................
+Human                                   equivalentClass                         Human.
+Human                                   subClassOf                              Human.
+Human                                   subClassOf                              Resource.
+Human                                   subClassOf                              Thing.
+Human                                   type                                    Class.
+Human                                   type                                    Class.
+Human                                   type                                    Resource.
+Human1                                  sameAs                                  Human1.
+Human1                                  type                                    Human.
+Human1                                  type                                    Resource.
+Human1                                  type                                    Thing.
+Human2                                  hasAncestor                             Human1.
+Human2                                  sameAs                                  Human2.
+Human2                                  type                                    Human.
+Human2                                  type                                    Resource.
+Human2                                  type                                    Thing.
+Human3                                  hasAncestor                             Human1.
+Human3                                  hasAncestor                             Human2.
+Human3                                  sameAs                                  Human3.
+Human3                                  type                                    Human.
+Human3                                  type                                    Resource.
+Human3                                  type                                    Thing.
+Human4                                  hasAncestor                             Human1.
+Human4                                  sameAs                                  Human4.
+Human4                                  type                                    Human.
+Human4                                  type                                    Resource.
+Human4                                  type                                    Thing.
+Human5                                  hasAncestor                             Human1.
+Human5                                  hasAncestor                             Human4.
+Human5                                  sameAs                                  Human5.
+Human5                                  type                                    Human.
+Human5                                  type                                    Resource.
+Human5                                  type                                    Thing.
+hasAncestor                             subPropertyOf                           hasAncestor.
+hasAncestor                             type                                    ObjectProperty.
+hasAncestor                             type                                    Property.
+hasAncestor                             type                                    Resource.
+hasAncestor                             type                                    TransitiveProperty.
+...................................................................................................
+
+
+List of all humans:
+ 1: Human1
+ 2: Human2
+ 3: Human3
+ 4: Human4
+ 5: Human5
+
+Get ancestors of which human (give a number; 0 gives exit):
+1
+
+Human: Human1 has not registered any ancestors
+
+List of all humans:
+ 1: Human1
+ 2: Human2
+ 3: Human3
+ 4: Human4
+ 5: Human5
+
+Get ancestors of which human (give a number; 0 gives exit):
+2
+
+Human: Human2 has the following ancestors:
+    Human1
+
+List of all humans:
+ 1: Human1
+ 2: Human2
+ 3: Human3
+ 4: Human4
+ 5: Human5
+
+Get ancestors of which human (give a number; 0 gives exit):
+3
+
+Human: Human3 has the following ancestors:
+    Human2
+    Human1
+
+List of all humans:
+ 1: Human1
+ 2: Human2
+ 3: Human3
+ 4: Human4
+ 5: Human5
+
+Get ancestors of which human (give a number; 0 gives exit):
+4
+
+Human: Human4 has the following ancestors:
+    Human1
+
+List of all humans:
+ 1: Human1
+ 2: Human2
+ 3: Human3
+ 4: Human4
+ 5: Human5
+
+Get ancestors of which human (give a number; 0 gives exit):
+5
+
+Human: Human5 has the following ancestors:
+    Human4
+    Human1
+
+List of all humans:
+ 1: Human1
+ 2: Human2
+ 3: Human3
+ 4: Human4
+ 5: Human5
+
+Get ancestors of which human (give a number; 0 gives exit):
+0
+

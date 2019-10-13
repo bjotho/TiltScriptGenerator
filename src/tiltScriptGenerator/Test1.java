@@ -65,9 +65,7 @@ public class Test1 {
 		String fileName = "testFile.ttl";
 		InputStream inFile = FileManager.get().open(fileName);
 		if(inFile == null) {
-			throw new IllegalArgumentException(
-					"File: " + fileName + " not found"
-			);
+			throw new IllegalArgumentException("File: " + fileName + " not found");
 		} else {
 			model.read(inFile, null, "Turtle");
 		}
