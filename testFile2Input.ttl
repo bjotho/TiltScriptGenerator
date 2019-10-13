@@ -1,0 +1,20 @@
+@prefix : <http://www.uia.no/janpettersennytun/inference#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.uia.no/janpettersennytun/inference#> .
+
+:hasApprovedId a owl:DatatypeProperty ; rdfs:subPropertyOf :hasSomeId .
+:hasSomeId a owl:DatatypeProperty .
+:hasHusband a owl:ObjectProperty ; owl:inverseOf :hasWife .
+:hasWife a owl:ObjectProperty .
+
+:Man a owl:Class ; rdfs:subClassOf :Human .
+:Woman a owl:Class ; rdfs:subClassOf :Human .
+:Human a owl:Class .
+
+:Homer a owl:NamedIndividual , :Man ; :hasSomeId "Homer_ID1_SomeID" .
+:Marge a owl:NamedIndividual , :Woman ; :hasApprovedId "Marge_ID1_Approved" ;
+:hasHusband :Homer .

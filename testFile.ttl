@@ -4,4 +4,4 @@
 
 <http://uia.no/termit/task#taskSet2>
         <http://uia.no/termit/task#hasTaskSetName>
-                "TASK SET NO. 1\n" .
+                "TASK SET NO. 1" .
