@@ -6,14 +6,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <http://www.w3.org/2002/07/owl#> .
 
-[ rdf:type owl:Ontology
- ] .
-
-#################################################################
-#    Object Properties
-#################################################################
-
-###  http://www.uia.no/jpn/tilt#hasActiveIngredient
 :hasActiveIngredient rdf:type owl:ObjectProperty ;
                      owl:inverseOf :hasDrugClass ;
                      rdfs:domain :DrugClass ;

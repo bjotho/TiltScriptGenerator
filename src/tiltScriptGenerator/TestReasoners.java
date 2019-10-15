@@ -20,7 +20,7 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.util.FileManager;
 
 public class TestReasoners {
-	private static String inputFileName = "testFile2Input.ttl";
+	private static String inputFileName = "uia_tilt_input.ttl";
 	private static String outputFileName = "testFile2Output.ttl";
 	
 	public TestReasoners() {
@@ -60,7 +60,7 @@ public class TestReasoners {
 		
 		List<String> triples = new ArrayList<String>();
 		StmtIterator iter = model.listStatements(); //get all triples
-		String format = "%-20s";
+		String format = "%-30s";
 		String defaultNameSpace = model.getNsPrefixMap().get("");
 		if(defaultNameSpace == null) return triples;
 		while(iter.hasNext()) {
@@ -73,7 +73,11 @@ public class TestReasoners {
 			String tripleAsString = String.format(format, subject.getLocalName().toString());
 			tripleAsString += String.format(format, predicate.getLocalName().toString());
 			if(object instanceof Resource) {
-				tripleAsString += object.asResource().getLocalName().toString() + ".";
+				if(object.asResource().getLocalName() == null) {
+					tripleAsString += ".";
+				} else {
+					tripleAsString += object.asResource().getLocalName().toString() + ".";
+				}
 			} else {
 				//object is a literal
 				tripleAsString += "\"" + object.toString() + "\"" + ".";

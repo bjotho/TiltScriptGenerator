@@ -6,6 +6,9 @@ public class runner {
 	public static void main(String[] args) {
 		//Test1 test1 = new Test1();
 		//TestReasoners test2 = new TestReasoners();
-		AncestorClass test3 = new AncestorClass();
+		//AncestorClass test3 = new AncestorClass();
+		
+		GUI gui = new GUI("Tilt Script Generator");
+		
 	}
 }
