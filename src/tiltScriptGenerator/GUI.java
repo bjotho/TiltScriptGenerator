@@ -1,5 +1,8 @@
 package tiltScriptGenerator;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,9 +14,13 @@ public class GUI extends JFrame {
 	public GUI(String title){
 		JFrame jf = new JFrame();
 		jf.setTitle(title);
-		int width = 700; 
-		int height = 700; 
-		jf.setSize(width, height);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		jf.setSize((int) width, (int) height);
+		System.out.println("ScreenSize: " + screenSize + ", screenRes: " + screenRes + ", width: " + width + ", height: " + height);
+		jf.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		jf.setLocationRelativeTo(null);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setLayout(null);
