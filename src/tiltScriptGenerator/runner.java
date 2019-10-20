@@ -9,6 +9,5 @@ public class runner {
 		//AncestorClass test3 = new AncestorClass();
 		
 		GUI gui = new GUI("Tilt Script Generator");
-		
 	}
 }
