@@ -31,15 +31,21 @@ public class runner {
 		while (iter.hasNext()) {
 			Resource r = iter.nextResource();
 			if (r.hasProperty(hasSCTID, "297976006")) {
-				String triple = String.format(format, r.getLocalName().toString());
+				String valueTriple = String.format(format, r.getLocalName().toString());
+				String timeTriple = String.format(format, r.getLocalName().toString());
 				Property hasValue = model.getProperty(defaultNameSpace + "hasValue");
-				triple += String.format(format, hasValue.getLocalName().toString());
+				valueTriple += String.format(format, hasValue.getLocalName().toString());
 				RDFNode rValueNode = r.getProperty(hasValue).getObject();
 				Resource rValue = model.getResource(rValueNode.toString());
 				Property hasValueValue = model.getProperty(defaultNameSpace + "hasValueValue");
+				Property hasTime = model.getProperty(defaultNameSpace + "hasTime");
+				timeTriple += String.format(format, hasTime.getLocalName().toString());
 				RDFNode value = rValue.getProperty(hasValueValue).getObject();
-				triple += String.format(format, value.toString());
-				System.out.println(triple);
+				RDFNode time = rValue.getProperty(hasTime).getObject();
+				valueTriple += String.format(format, value.toString());
+				timeTriple += String.format(format, time.toString());
+				System.out.println(valueTriple);
+				System.out.println(timeTriple + "\n");
 			}
 		}
 		System.out.println("Done");
