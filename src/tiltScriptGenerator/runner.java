@@ -16,12 +16,9 @@ public class runner {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		//Test1 test1 = new Test1();
-		//TestReasoners test2 = new TestReasoners();
-		//AncestorClass test3 = new AncestorClass();
-		
 		OntModel model = readFile(OntModelSpec.OWL_DL_MEM_RULE_INF);
-		Property hasSCTID = model.getProperty("http://www.uia.no/jpn/tilt#hasSCTID");
+		String defaultNameSpace = model.getNsPrefixMap().get("");
+		Property hasSCTID = model.getProperty(defaultNameSpace + "hasSCTID");
 		System.out.println("Created property: " + hasSCTID);
 		ResIterator iter = model.listSubjectsWithProperty(hasSCTID);
 		System.out.println("Iterating...");
