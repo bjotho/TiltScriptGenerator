@@ -16,16 +16,19 @@ public class runner {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		OntModel model = readFile(OntModelSpec.OWL_DL_MEM_RULE_INF);
-		String defaultNameSpace = model.getNsPrefixMap().get("");
+		OntModel model = readFile(OntModelSpec.OWL_DL_MEM);
+		String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
 		Property hasSCTID = model.getProperty(defaultNameSpace + "hasSCTID");
 		System.out.println("Created property: " + hasSCTID);
 		ResIterator iter = model.listSubjectsWithProperty(hasSCTID);
 		System.out.println("Iterating...");
 		while (iter.hasNext()) {
 			Resource r = iter.nextResource();
-			System.out.println(r);
+			if (r.hasProperty(hasSCTID, "297976006")) {
+				System.out.println(r);
+			}
 		}
+		System.out.println("Done");
 		
 		//GUI gui = new GUI("Tilt Script Generator");
 	}
