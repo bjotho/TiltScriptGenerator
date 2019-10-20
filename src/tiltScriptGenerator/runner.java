@@ -26,7 +26,7 @@ public class runner {
 		String format = "%-30s";
 		
 		ResIterator iter = model.listSubjectsWithProperty(hasSCTID);
-		System.out.println("Iterating...");
+		System.out.println("Iterating...\n");
 		
 		while (iter.hasNext()) {
 			Resource r = iter.nextResource();
