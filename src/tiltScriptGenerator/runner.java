@@ -50,7 +50,7 @@ public class runner {
 		}
 		System.out.println("Done");
 		
-		//GUI gui = new GUI("Tilt Script Generator");
+		GUI gui = new GUI("Tilt Script Generator");
 	}
 	
 	public static OntModel readFile(OntModelSpec ontModelSpec) {
