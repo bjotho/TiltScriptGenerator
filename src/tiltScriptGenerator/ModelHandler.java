@@ -40,7 +40,6 @@ public class ModelHandler {
 				String[] event = new String[3];
 				//String valueTriple = String.format(format, r.getLocalName().toString());
 				//String timeTriple = String.format(format, r.getLocalName().toString());
-				event[0] = r.getLocalName().toString();
 				Property hasValue = model.getProperty(defaultNameSpace + "hasValue");
 				//valueTriple += String.format(format, hasValue.getLocalName().toString());
 				RDFNode rValueNode = r.getProperty(hasValue).getObject();
@@ -51,8 +50,20 @@ public class ModelHandler {
 				RDFNode value = rValue.getProperty(hasValueValue).getObject();
 				RDFNode time = rValue.getProperty(hasTime).getObject();
 				//valueTriple += String.format(format, value.toString());
-				event[1] = value.toString();
 				//timeTriple += String.format(format, time.toString());
+				Property hasTypeName = model.getProperty(defaultNameSpace + "hasTypeName");
+				try {
+					event[0] = r.getProperty(hasTypeName).getObject().toString();
+				} catch (NullPointerException e) {
+					System.out.println("hasTypeValue undefined for " + r.getLocalName().toString());
+					try {
+						event[0] = rValue.getProperty(hasTypeName).getObject().toString();
+					} catch (NullPointerException e1) {
+						System.out.println("hasTypeValue undefined for " + rValue.getLocalName().toString());
+						event[0] = r.getLocalName().toString();
+					}
+				}
+				event[1] = value.toString();
 				event[2] = time.toString();
 				//System.out.println(valueTriple);
 				//System.out.println(timeTriple + "\n");
