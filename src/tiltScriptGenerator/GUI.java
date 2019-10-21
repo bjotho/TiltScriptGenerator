@@ -147,6 +147,8 @@ public class GUI extends JFrame implements ActionListener {
 		} else if (e.getSource() == this.readEventsButton) {
 			System.out.println("Read events");
 			
+			this.eventScriptTableModel.setRowCount(0);
+			
 			List<String[]> initialBodyTempReadings = this.modelHandler.getInitialBodyTempReadings();
 			
 			for (String[] triple : initialBodyTempReadings) {
