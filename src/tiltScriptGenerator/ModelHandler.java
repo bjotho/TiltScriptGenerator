@@ -55,11 +55,9 @@ public class ModelHandler {
 				try {
 					event[0] = r.getProperty(hasTypeName).getObject().toString();
 				} catch (NullPointerException e) {
-					System.out.println("hasTypeValue undefined for " + r.getLocalName().toString());
 					try {
 						event[0] = rValue.getProperty(hasTypeName).getObject().toString();
 					} catch (NullPointerException e1) {
-						System.out.println("hasTypeValue undefined for " + rValue.getLocalName().toString());
 						event[0] = r.getLocalName().toString();
 					}
 				}

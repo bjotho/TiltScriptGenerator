@@ -120,7 +120,7 @@ public class GUI extends JFrame implements ActionListener {
 		removeEventsButton.addActionListener(this);
 		buttonPanel.add(removeEventsButton);
 		
-		this.editEventButton = new JButton("Read events");
+		this.editEventButton = new JButton("Edit event");
 		editEventButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
 		editEventButton.addActionListener(this);
 		buttonPanel.add(editEventButton);
