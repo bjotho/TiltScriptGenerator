@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,12 +27,16 @@ import javax.swing.table.DefaultTableModel;
 public class GUI extends JFrame implements ActionListener {
 	
 	private JFrame jf;
+	private JButton addEventButton;
+	private JButton readEventsButton;
+	private JButton removeEventsButton;
+	private JButton editEventButton;
+	private JButton saveScriptButton;
 	private DefaultTableModel eventScriptTableModel = new DefaultTableModel();
 	private JTable eventScriptTable;
-	private int tIndex = 0;
-	private int timestamp = 0;
+	private ModelHandler modelHandler;
 
-	public GUI(String title){
+	public GUI(String title) {
 		this.jf = new JFrame();
 		jf.setTitle(title);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -43,8 +48,6 @@ public class GUI extends JFrame implements ActionListener {
 		jf.setLayout(null);
 		
 		Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
-		Border emptyBorder = BorderFactory.createEmptyBorder(12, 10, 10, 10);
-		//Border compBorder = BorderFactory.createCompoundBorder(emptyBorder, blackBorder);
 		
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -79,7 +82,7 @@ public class GUI extends JFrame implements ActionListener {
 		c.ipadx = 75;
 		c.ipady = 10;
 		
-		JButton addEventButton = new JButton("Add event");
+		this.addEventButton = new JButton("Add event");
 		addEventButton.addActionListener(this);
 		addEventPanel.add(addEventButton, c);
 		
@@ -104,25 +107,62 @@ public class GUI extends JFrame implements ActionListener {
 		
 		jf.add(eventScriptPanel);
 		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBounds((int) (jf.getSize().width*0.82), (int) (jf.getSize().height*0.3125), (int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.6));
+		
+		this.readEventsButton = new JButton("Read events");
+		readEventsButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
+		readEventsButton.addActionListener(this);
+		buttonPanel.add(readEventsButton);
+		
+		this.removeEventsButton = new JButton("Remove events");
+		removeEventsButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
+		removeEventsButton.addActionListener(this);
+		buttonPanel.add(removeEventsButton);
+		
+		this.editEventButton = new JButton("Read events");
+		editEventButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
+		editEventButton.addActionListener(this);
+		buttonPanel.add(editEventButton);
+		
+		this.saveScriptButton = new JButton("Save script");
+		saveScriptButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
+		saveScriptButton.addActionListener(this);
+		buttonPanel.add(saveScriptButton);
+		
+		jf.add(buttonPanel);
+		
 		jf.setVisible(true);
 	}
 	
-	public String[] createEventScriptEntry() {
-		String[] entry = new String[3];
-		entry[0] = "Hans";
-		entry[1] = Double.toString(Double.parseDouble("37.5") + this.timestamp);
-		entry[2] = Integer.toString(++this.timestamp);
-		return entry;
-	}
-	
-	public void addEvent() {
-		String[] event = this.createEventScriptEntry();
+	public void addEvent(String[] event) {
 		this.eventScriptTableModel.addRow(event);
 		this.jf.revalidate();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.addEvent();
+		if (e.getSource() == this.addEventButton) {
+			System.out.println("Add event");
+		} else if (e.getSource() == this.readEventsButton) {
+			System.out.println("Read events");
+			
+			List<String[]> initialBodyTempReadings = this.modelHandler.getInitialBodyTempReadings();
+			
+			for (String[] triple : initialBodyTempReadings) {
+				this.addEvent(triple);
+			}
+			
+		} else if (e.getSource() == this.removeEventsButton) {
+			System.out.println("Remove events");
+		} else if (e.getSource() == this.editEventButton) {
+			System.out.println("Edit event");
+		} else if (e.getSource() == this.saveScriptButton) {
+			System.out.println("Save script");
+		}
+	}
+	
+	public void setModelHandler(ModelHandler modelHandler) {
+		this.modelHandler = modelHandler;
 	}
 }
