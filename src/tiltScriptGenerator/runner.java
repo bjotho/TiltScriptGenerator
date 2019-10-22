@@ -1,7 +1,5 @@
 package tiltScriptGenerator;
 
-import java.util.List;
-
 public class runner {
 	
 	@SuppressWarnings("unused")

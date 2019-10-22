@@ -139,6 +139,10 @@ public class GUI extends JFrame implements ActionListener {
 		this.eventScriptTableModel.addRow(event);
 		this.jf.revalidate();
 	}
+	
+	public void setModelHandler(ModelHandler modelHandler) {
+		this.modelHandler = modelHandler;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -162,9 +166,5 @@ public class GUI extends JFrame implements ActionListener {
 		} else if (e.getSource() == this.saveScriptButton) {
 			System.out.println("Save script");
 		}
-	}
-	
-	public void setModelHandler(ModelHandler modelHandler) {
-		this.modelHandler = modelHandler;
 	}
 }

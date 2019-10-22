@@ -43,7 +43,7 @@ public class ModelHandler {
 				Property hasValue = model.getProperty(defaultNameSpace + "hasValue");
 				//valueTriple += String.format(format, hasValue.getLocalName().toString());
 				RDFNode rValueNode = r.getProperty(hasValue).getObject();
-				Resource rValue = model.getResource(rValueNode.toString());
+				Resource rValue = rValueNode.asResource();
 				Property hasValueValue = model.getProperty(defaultNameSpace + "hasValueValue");
 				Property hasTime = model.getProperty(defaultNameSpace + "hasTime");
 				//timeTriple += String.format(format, hasTime.getLocalName().toString());
