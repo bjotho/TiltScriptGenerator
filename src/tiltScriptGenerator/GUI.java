@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -174,10 +175,26 @@ public class GUI extends JFrame implements ActionListener {
 			
 		} else if (e.getSource() == this.removeEventsButton) {
 			System.out.println("Remove events");
+			
+			int[] selectedEvents = eventScriptTable.getSelectedRows();
+			
+			removeEvents(selectedEvents);
 		} else if (e.getSource() == this.editEventButton) {
 			System.out.println("Edit event");
 		} else if (e.getSource() == this.saveScriptButton) {
 			System.out.println("Save script");
 		}
+	}
+	
+	public void removeEvents(int[] selectedEvents) {
+		Arrays.sort(selectedEvents);
+		
+		for (int i = selectedEvents.length - 1; i >= 0; i--) {
+	        this.eventScriptTableModel.removeRow(selectedEvents[i]);
+	    }
+	}
+	
+	public void setModelHandler(ModelHandler modelHandler) {
+		this.modelHandler = modelHandler;
 	}
 }
