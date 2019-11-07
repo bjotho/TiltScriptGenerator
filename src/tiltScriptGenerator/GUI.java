@@ -41,6 +41,9 @@ public class GUI extends JFrame implements ActionListener {
 	private DefaultTableModel eventScriptTableModel = new DefaultTableModel();
 	private JTable eventScriptTable;
 	private ModelHandler modelHandler;
+	private JComboBox<String> addEventTypeComboBox;
+	private JTextField addEventValue;
+	private JTextField addEventTime;
 
 	public GUI(String title) {
 		this.jf = new JFrame();
@@ -73,16 +76,16 @@ public class GUI extends JFrame implements ActionListener {
 		c.ipady = 10;
 		
 		String[] addEventTypes = {"Select event type", "Choice 1", "Choice 2", "Choice 3"};
-		JComboBox<String> addEventTypeComboBox = new JComboBox<String>(addEventTypes);
+		this.addEventTypeComboBox = new JComboBox<String>(addEventTypes);
 		addEventPanel.add(addEventTypeComboBox, c);
 		
 		c.ipadx = 100;
 		c.ipady = 15;
 		
-		JTextField addEventValue = new JTextField("Enter value");
+		this.addEventValue = new JTextField("Enter value");
 		addEventPanel.add(addEventValue, c);
 		
-		JTextField addEventTime = new JTextField("Enter time");
+		this.addEventTime = new JTextField("Enter time");
 		addEventPanel.add(addEventTime, c);
 		
 		c.ipadx = 75;
@@ -162,6 +165,12 @@ public class GUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.addEventButton) {
 			System.out.println("Add event");
+			String[] event = new String[3];
+			event[0] = (String) addEventTypeComboBox.getSelectedItem();
+			event[1] = addEventValue.getText();
+			event[2] = addEventTime.getText();
+			this.addEvent(event);
+			
 		} else if (e.getSource() == this.readEventsButton) {
 			System.out.println("Read events");
 			

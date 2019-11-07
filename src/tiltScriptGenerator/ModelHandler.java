@@ -6,6 +6,12 @@ import java.util.List;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
@@ -16,19 +22,55 @@ import org.apache.jena.util.FileManager;
 public class ModelHandler {
 	private static String inputFileName = "uia_tilt_input.ttl";
 	private static String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
-	private OntModel model;
+	private static OntModel model;
+	private static String prefixes = 
+						"PREFIX : <http://www.uia.no/jpn/tilt#>\n" +
+						"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+						"PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+						"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+						"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
 	
 	public ModelHandler() {
-		this.model = readFile(OntModelSpec.OWL_DL_MEM);
+		model = readFile(OntModelSpec.OWL_DL_MEM);
 	}
 	
-	public String sparqlQuery() {
-		
-		return "";
+	static public String getNameOfFirstHuman(String name) {
+		String queryText = prefixes +
+				"SELECT ?name\n" +
+				"WHERE {\n" + 
+				"?human  rdf:type   :Human.\n" +
+				"?human  :hasHumanName   ?name.\n" +
+				"} ORDER BY ?name";
+
+		//Create select
+		Query query;
+		QueryExecution qexec;
+		try {
+			query = QueryFactory.create(queryText);
+			qexec = QueryExecutionFactory.create(query, model);
+		} catch(Exception e){
+			System.out.println(e);
+			return null;
+		}
+
+		//Run select
+		ResultSet response = null;
+		try {
+			response = qexec.execSelect();
+			while( response.hasNext()){
+				QuerySolution QuerySolution = response.nextSolution();
+
+				RDFNode nameNode = QuerySolution.get("?name");
+				if( nameNode == null ) break;
+				return nameNode.asLiteral().getString();	
+			}	
+		} finally {qexec.close();}
+
+		return null;		
 	}
 	
 	public List<String[]> getInitialBodyTempReadings() {
-		Property hasSCTID = this.model.getProperty(ModelHandler.defaultNameSpace + "hasSCTID");
+		Property hasSCTID = model.getProperty(defaultNameSpace + "hasSCTID");
 		//System.out.println("Created property: " + hasSCTID);
 		
 		//String format = "%-30s";
