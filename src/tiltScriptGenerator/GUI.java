@@ -193,8 +193,4 @@ public class GUI extends JFrame implements ActionListener {
 	        this.eventScriptTableModel.removeRow(selectedEvents[i]);
 	    }
 	}
-	
-	public void setModelHandler(ModelHandler modelHandler) {
-		this.modelHandler = modelHandler;
-	}
 }
