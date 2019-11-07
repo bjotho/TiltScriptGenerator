@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -19,8 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 @SuppressWarnings("serial")
@@ -99,6 +104,14 @@ public class GUI extends JFrame implements ActionListener {
 		this.eventScriptTableModel.addColumn("Event value");
 		this.eventScriptTableModel.addColumn("Time");
 		this.eventScriptTable = new JTable(this.eventScriptTableModel);
+		
+		TableRowSorter<TableModel> sorter = new TableRowSorter<>(this.eventScriptTable.getModel());
+		this.eventScriptTable.setRowSorter(sorter);
+		List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+		int columnIndexToSort = 2;
+		sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+		sorter.setSortKeys(sortKeys);
+		sorter.sort();
 		
 		JScrollPane tableScroller = new JScrollPane(eventScriptTable);
 		tableScroller.setPreferredSize(new Dimension(eventScriptPanel.getSize().width, eventScriptPanel.getSize().height));

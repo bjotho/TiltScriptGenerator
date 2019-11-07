@@ -22,6 +22,11 @@ public class ModelHandler {
 		this.model = readFile(OntModelSpec.OWL_DL_MEM);
 	}
 	
+	public String sparqlQuery() {
+		
+		return "";
+	}
+	
 	public List<String[]> getInitialBodyTempReadings() {
 		Property hasSCTID = this.model.getProperty(ModelHandler.defaultNameSpace + "hasSCTID");
 		//System.out.println("Created property: " + hasSCTID);
