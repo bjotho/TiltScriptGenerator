@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,13 +25,15 @@ import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.border.Border;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 
 @SuppressWarnings("serial")
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener, TableModelListener {
 	
 	private JFrame jf;
 	private JButton addEventButton;
@@ -40,10 +43,10 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton saveScriptButton;
 	private DefaultTableModel eventScriptTableModel = new DefaultTableModel();
 	private JTable eventScriptTable;
-	private ModelHandler modelHandler;
 	private JComboBox<String> addEventTypeComboBox;
 	private JTextField addEventValue;
 	private JTextField addEventTime;
+	private boolean showSaveWarning = false;
 
 	public GUI(String title) {
 		this.jf = new JFrame();
@@ -108,6 +111,7 @@ public class GUI extends JFrame implements ActionListener {
 		this.eventScriptTableModel.addColumn("Event value");
 		this.eventScriptTableModel.addColumn("Time");
 		this.eventScriptTable = new JTable(this.eventScriptTableModel);
+		this.eventScriptTable.getModel().addTableModelListener(this);
 		
 		TableRowSorter<TableModel> sorter = new TableRowSorter<>(this.eventScriptTable.getModel());
 		this.eventScriptTable.setRowSorter(sorter);
@@ -157,8 +161,13 @@ public class GUI extends JFrame implements ActionListener {
 		this.jf.revalidate();
 	}
 	
-	public void setModelHandler(ModelHandler modelHandler) {
-		this.modelHandler = modelHandler;
+	public void removeEvents(int[] selectedEvents) {
+		Arrays.sort(selectedEvents);
+		
+		for (int i = selectedEvents.length - 1; i >= 0; i--) {
+	        this.eventScriptTableModel.removeRow(selectedEvents[i]);
+	        this.showSaveWarning = true;
+	    }
 	}
 
 	@Override
@@ -169,37 +178,62 @@ public class GUI extends JFrame implements ActionListener {
 			event[0] = (String) addEventTypeComboBox.getSelectedItem();
 			event[1] = addEventValue.getText();
 			event[2] = addEventTime.getText();
-			this.addEvent(event);
+			if (addEventTypeComboBox.getSelectedIndex() != 0) {
+				this.addEvent(event);
+				this.showSaveWarning = true;
+			}
 			
 		} else if (e.getSource() == this.readEventsButton) {
 			System.out.println("Read events");
+			int unsavedWarningSelection = 1;
+			if (showSaveWarning) {
+				//Display unsaved changes warning with selection to proceed or cancel
+				Object[] options = {"Cancel", "Discard"};
+				unsavedWarningSelection = JOptionPane.showOptionDialog(this,
+						"You have unsaved changes which will be lost if \nyou proceed to read a new file.\nAre you sure you wish to discard these changes?",
+						"Unsaved changes",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						options,
+						options[1]);
+			}
 			
-			this.eventScriptTableModel.setRowCount(0);
+			if (unsavedWarningSelection == 1) {
+				this.eventScriptTableModel.setRowCount(0);
+				List<String[]> initialBodyTempReadings = ModelHandler.getInitialFindings("Hans");
 			
-			List<String[]> initialBodyTempReadings = this.modelHandler.getInitialBodyTempReadings();
-			
-			for (String[] triple : initialBodyTempReadings) {
-				this.addEvent(triple);
+				for (String[] triple : initialBodyTempReadings) {
+					this.addEvent(triple);
+				}
+				showSaveWarning = false;
 			}
 			
 		} else if (e.getSource() == this.removeEventsButton) {
 			System.out.println("Remove events");
 			
 			int[] selectedEvents = eventScriptTable.getSelectedRows();
-			
 			removeEvents(selectedEvents);
+			//showSaveWarning = true;
+			
 		} else if (e.getSource() == this.editEventButton) {
 			System.out.println("Edit event");
+			List<String[]> triples = ModelHandler.getInitialFindings("Hans");
+			for (String[] triple : triples) {
+				for (String node : triple) {
+					System.out.print("Outside ModelHandler: " + node);
+				}
+				System.out.print("\n");
+			}
+			
 		} else if (e.getSource() == this.saveScriptButton) {
 			System.out.println("Save script");
+			this.showSaveWarning = false;
 		}
 	}
 	
-	public void removeEvents(int[] selectedEvents) {
-		Arrays.sort(selectedEvents);
-		
-		for (int i = selectedEvents.length - 1; i >= 0; i--) {
-	        this.eventScriptTableModel.removeRow(selectedEvents[i]);
-	    }
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		this.showSaveWarning = true;
 	}
 }
