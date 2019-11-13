@@ -2,6 +2,7 @@ package tiltScriptGenerator;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -30,6 +31,9 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.jena.ontology.OntModelSpec;
 
 
 @SuppressWarnings("serial")
@@ -74,11 +78,14 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		addEventPanel.setBackground(new Color(200, 225, 225));
 		addEventPanel.setLayout(gbl);
 		
-		c.insets = new Insets(10, 30, 10, 30);
+		c.insets = new Insets(10, 20, 10, 20);
 		c.ipadx = 75;
 		c.ipady = 10;
 		
-		String[] addEventTypes = {"Select event type", "Choice 1", "Choice 2", "Choice 3"};
+		String[] selectEventType = new String[] {"Select event type"};
+		String[] eventTypes = ModelHandler.getEventTypes().stream().toArray(String[]::new);
+		String[] addEventTypes = ArrayUtils.addAll(selectEventType, eventTypes); 
+		
 		this.addEventTypeComboBox = new JComboBox<String>(addEventTypes);
 		addEventPanel.add(addEventTypeComboBox, c);
 		
@@ -197,17 +204,13 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 						null,
 						options,
 						options[1]);
+				
+				// If the user pressed "Discard", show a FileDialog where the user can choose a patient-file where events will be read from
+				if (unsavedWarningSelection == 1)
+					showFileDialog();
 			}
-			
-			if (unsavedWarningSelection == 1) {
-				this.eventScriptTableModel.setRowCount(0);
-				List<String[]> initialBodyTempReadings = ModelHandler.getInitialFindings("Hans");
-			
-				for (String[] triple : initialBodyTempReadings) {
-					this.addEvent(triple);
-				}
-				showSaveWarning = false;
-			}
+			else
+				showFileDialog();
 			
 		} else if (e.getSource() == this.removeEventsButton) {
 			System.out.println("Remove events");
@@ -226,6 +229,39 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		} else if (e.getSource() == this.saveScriptButton) {
 			System.out.println("Save script");
 			this.showSaveWarning = false;
+		}
+	}
+	
+	public void readEvents() {
+		this.eventScriptTableModel.setRowCount(0);
+		
+		List<String[]> initialBodyTempReadings = ModelHandler.getInitialFindings();
+	
+		for (String[] triple : initialBodyTempReadings) {
+			this.addEvent(triple);
+		}
+		
+		this.showSaveWarning = false;
+	}
+	
+	// Show a FileDialog where the user can choose a patient-file where events will be read from
+	public void showFileDialog() {
+		FileDialog fd = new FileDialog(jf, "Please choose patient-file:", FileDialog.LOAD);
+		
+		fd.setDirectory("C:\\");
+		fd.setFile("*.ttl");
+		fd.setVisible(true);
+		
+		String filename = fd.getFile();
+		
+		if (filename == null)
+			System.out.println("You cancelled the choice");
+		else {
+			System.out.println("You chose " + filename);
+			
+			ModelHandler.setInputFileName(filename);
+			ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
+			readEvents();
 		}
 	}
 	

@@ -23,6 +23,7 @@ public class ModelHandler {
 	private static String inputFileName = "uia_tilt_input.ttl";
 	private static String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
 	private static OntModel model;
+
 	private static String prefixes = 
 						"PREFIX : <http://www.uia.no/jpn/tilt#>\n" +
 						"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
@@ -58,13 +59,12 @@ public class ModelHandler {
 		return output;
 	}
 	
-	public static List<String[]> getInitialFindings(String name) {
+	public static List<String[]> getInitialFindings() {
 		String selection = "?findings ?valueValue ?time";
 		String queryText = prefixes +
 				"\nSELECT " + selection + "\n" +
 				"WHERE {\n" + 
 				"\t?human rdf:type :Human.\n" +
-				"\t?human :hasHumanName " + "\"" + name + "\"^^xsd:string.\n" +
 				"\t?human :hasEstimatedHumanState ?estimatedHumanState.\n" +
 				"\t?estimatedHumanState :hasCurrentVitalSigns ?findings.\n" +
 				"\t?findings :hasValue ?value.\n" +
@@ -261,5 +261,21 @@ public class ModelHandler {
 		}
 		ontModel.read(inFile, null, "Turtle");
 		return ontModel;
+	}
+	
+	public static String getInputFileName() {
+		return inputFileName;
+	}
+	
+	public static void setInputFileName(String fileName) {
+		ModelHandler.inputFileName = fileName;
+	}
+	
+	public static OntModel getModel() {
+		return model;
+	}
+
+	public static void setModel(OntModel model) {
+		ModelHandler.model = model;
 	}
 }
