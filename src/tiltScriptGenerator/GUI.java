@@ -218,9 +218,15 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			
 		} else if (e.getSource() == this.editEventButton) {
 			System.out.println("Edit event");
-			List<String> triples = ModelHandler.getEventTypes();
-			for (String triple : triples) {
-				System.out.println(triple);
+			List<String[]> triples = ModelHandler.getEventList("Hans");
+			for (String[] triple : triples) {
+				String output = "";
+				int formatSize = 40;
+				for (String s : triple) {
+					output += String.format("%-" + formatSize + "s", s);
+					formatSize = 10;
+				}
+				System.out.println(output);
 			}
 			
 		} else if (e.getSource() == this.saveScriptButton) {

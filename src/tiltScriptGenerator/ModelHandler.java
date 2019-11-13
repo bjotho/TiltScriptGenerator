@@ -34,7 +34,7 @@ public class ModelHandler {
 		model = readFile(OntModelSpec.OWL_DL_MEM);
 	}
 	
-	public static String getPatientName(String name) {
+	public static List<String[]> getPatientName(String name) {
 		String selection = "?name";
 		String queryText = prefixes +
 				"SELECT " + selection + "\n" +
@@ -43,19 +43,7 @@ public class ModelHandler {
 				"?human :hasHumanName " + selection + ".\n" +
 				"FILTER (" + selection + " = \"" + name + "\").\n" +
 				"}";
-		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
-		String output = "";
-		try {
-			for (List<RDFNode> triple : triples) {
-				for (RDFNode node : triple) {
-					output += node.asLiteral().toString();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return output;
+		return execSelectQuery(queryText, selection);
 	}
 	
 	public static List<String[]> getInitialFindings(String name) {
@@ -71,29 +59,7 @@ public class ModelHandler {
 				"\t?value :hasValueValue ?valueValue.\n" +
 				"\t?value :hasTime ?time.\n" +
 				"}";
-		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
-		List<String[]> output = new ArrayList<String[]>();
-		try {
-			System.out.println(queryText);
-			for (List<RDFNode> triple : triples) {
-				String[] tripleStringList = new String[3];
-				int i = 0;
-				for (RDFNode node : triple) {
-					if(node instanceof Resource) {
-						if(node.asResource().getLocalName() != null) {
-							tripleStringList[i] = node.asResource().getLocalName().toString();
-						}
-					} else {
-						tripleStringList[i] = node.asLiteral().toString();
-					}
-					i++;
-				}
-				output.add(tripleStringList);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return output;
+		return execSelectQuery(queryText, selection);
 	}
 	
 	public static List<String[]> getEventList(String name) {
@@ -109,32 +75,10 @@ public class ModelHandler {
 				"\t?value :hasValueValue ?valueValue.\n" +
 				"\t?value :hasTime ?time.\n" +
 				"}";
-		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
-		List<String[]> output = new ArrayList<String[]>();
-		try {
-			System.out.println(queryText);
-			for (List<RDFNode> triple : triples) {
-				String[] tripleStringList = new String[3];
-				int i = 0;
-				for (RDFNode node : triple) {
-					if(node instanceof Resource) {
-						if(node.asResource().getLocalName() != null) {
-							tripleStringList[i] = node.asResource().getLocalName().toString();
-						}
-					} else {
-						tripleStringList[i] = node.asLiteral().toString();
-					}
-					i++;
-				}
-				output.add(tripleStringList);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return output;
+		return execSelectQuery(queryText, selection);
 	}
 	
-	public static List<String> getEventTypes() {
+	public static List<String[]> getEventTypes() {
 		String selection = "?subject";
 		String queryText = prefixes +
 				"\nSELECT " + selection + "\n" +
@@ -144,30 +88,10 @@ public class ModelHandler {
 				"{?individual a ?subject.}.\n" +
 				"?subject rdfs:subClassOf :Vital_sign_finding.\n" +
 				"}";
-		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
-		List<String> output = new ArrayList<String>();
-		try {
-			System.out.println(queryText);
-			for (List<RDFNode> triple : triples) {
-				int i = 0;
-				for (RDFNode node : triple) {
-					if(node instanceof Resource) {
-						if(node.asResource().getLocalName() != null) {
-							output.add(node.asResource().getLocalName().toString());
-						}
-					} else {
-						output.add(node.asLiteral().toString());
-					}
-					i++;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return output;
+		return execSelectQuery(queryText, selection);
 	}
 	
-	public static List<List<RDFNode>> execSelectQuery(String queryText, String selection) {
+	public static List<String[]> execSelectQuery(String queryText, String selection) {
 		//Create select
 		Query query;
 		QueryExecution qexec;
@@ -179,7 +103,6 @@ public class ModelHandler {
 			System.out.println(e);
 			return null;
 		}
-
 		//Run select
 		ResultSet response = null;
 		List<List<RDFNode>> solutions = new ArrayList<List<RDFNode>>();
@@ -199,7 +122,30 @@ public class ModelHandler {
 		} finally {
 			qexec.close();
 		}
-		return solutions;
+		
+		//Convert List<List<RDFNode>> to List<String[]>
+		List<String[]> output = new ArrayList<String[]>();
+		try {
+			//System.out.println(queryText);
+			for (List<RDFNode> triple : solutions) {
+				String[] tripleStringList = new String[select.length];
+				int i = 0;
+				for (RDFNode node : triple) {
+					if(node instanceof Resource) {
+						if(node.asResource().getLocalName() != null) {
+							tripleStringList[i] = node.asResource().getLocalName().toString();
+						}
+					} else {
+						tripleStringList[i] = node.asLiteral().toString();
+					}
+					i++;
+				}
+				output.add(tripleStringList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
 	}
 	
 	public static List<String[]> getInitialBodyTempReadings() {
