@@ -74,7 +74,7 @@ public class ModelHandler {
 		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
 		List<String[]> output = new ArrayList<String[]>();
 		try {
-			//System.out.println(queryText);
+			System.out.println(queryText);
 			for (List<RDFNode> triple : triples) {
 				String[] tripleStringList = new String[3];
 				int i = 0;
@@ -112,7 +112,7 @@ public class ModelHandler {
 		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
 		List<String[]> output = new ArrayList<String[]>();
 		try {
-			//System.out.println(queryText);
+			System.out.println(queryText);
 			for (List<RDFNode> triple : triples) {
 				String[] tripleStringList = new String[3];
 				int i = 0;
@@ -127,6 +127,39 @@ public class ModelHandler {
 					i++;
 				}
 				output.add(tripleStringList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	public static List<String> getEventTypes() {
+		String selection = "?subject";
+		String queryText = prefixes +
+				"\nSELECT " + selection + "\n" +
+				"WHERE {\n" + 
+				"\t{?subject a owl:Class.}\n" +
+				"UNION\n" +
+				"{?individual a ?subject.}.\n" +
+				"?subject rdfs:subClassOf :Vital_sign_finding.\n" +
+				"}";
+		List<List<RDFNode>> triples = execSelectQuery(queryText, selection);
+		List<String> output = new ArrayList<String>();
+		try {
+			System.out.println(queryText);
+			for (List<RDFNode> triple : triples) {
+				int i = 0;
+				for (RDFNode node : triple) {
+					if(node instanceof Resource) {
+						if(node.asResource().getLocalName() != null) {
+							output.add(node.asResource().getLocalName().toString());
+						}
+					} else {
+						output.add(node.asLiteral().toString());
+					}
+					i++;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
