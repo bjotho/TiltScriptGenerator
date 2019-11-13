@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -78,7 +79,24 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		c.ipadx = 75;
 		c.ipady = 10;
 		
-		String[] addEventTypes = {"Select event type", "Choice 1", "Choice 2", "Choice 3"};
+		List<String> eventTypeList = ModelHandler.getEventTypes();
+		String[] eventTypeArray = new String[eventTypeList.size()];
+		//eventTypeArray[0] = "Select event type";
+		int ix = 0;
+		for (String s : eventTypeList) {
+			eventTypeArray[ix] = s;
+			ix++;
+		}
+		eventTypeArray = Stream.of(eventTypeArray).sorted().toArray(String[]::new);
+		String[] addEventTypes = new String[eventTypeArray.length+1];
+		for (int i = 0; i < addEventTypes.length; i++) {
+			if (i == 0) {
+				addEventTypes[i] = "Select event type";
+			} else {
+				addEventTypes[i] = eventTypeArray[i-1];
+			}
+		}
+		
 		this.addEventTypeComboBox = new JComboBox<String>(addEventTypes);
 		addEventPanel.add(addEventTypeComboBox, c);
 		
@@ -218,15 +236,18 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			
 		} else if (e.getSource() == this.editEventButton) {
 			System.out.println("Edit event");
-			List<String[]> triples = ModelHandler.getEventList("Hans");
-			for (String[] triple : triples) {
-				String output = "";
-				int formatSize = 40;
-				for (String s : triple) {
-					output += String.format("%-" + formatSize + "s", s);
-					formatSize = 10;
+			List<String[]> triples = ModelHandler.getInitialFindings("Hans");
+			boolean printOutput = true;
+			if (printOutput) {
+				for (String[] triple : triples) {
+					String output = "";
+					int formatSize = 40;
+					for (String s : triple) {
+						output += String.format("%-" + formatSize + "s", s);
+						formatSize = 10;
+					}
+					System.out.println(output);
 				}
-				System.out.println(output);
 			}
 			
 		} else if (e.getSource() == this.saveScriptButton) {

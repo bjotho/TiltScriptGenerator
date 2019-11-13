@@ -2,7 +2,10 @@ package tiltScriptGenerator;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -51,44 +54,66 @@ public class ModelHandler {
 		String queryText = prefixes +
 				"\nSELECT " + selection + "\n" +
 				"WHERE {\n" + 
-				"\t?human rdf:type :Human.\n" +
-				"\t?human :hasHumanName " + "\"" + name + "\"^^xsd:string.\n" +
-				"\t?human :hasEstimatedHumanState ?estimatedHumanState.\n" +
-				"\t?estimatedHumanState :hasCurrentVitalSigns ?findings.\n" +
-				"\t?findings :hasValue ?value.\n" +
-				"\t?value :hasValueValue ?valueValue.\n" +
-				"\t?value :hasTime ?time.\n" +
+				"?human rdf:type :Human.\n" +
+				"?human :hasHumanName " + "\"" + name + "\"^^xsd:string.\n" +
+				"?human :hasEstimatedHumanState ?estimatedHumanState.\n" +
+				"?estimatedHumanState :hasCurrentVitalSigns ?findings.\n" +
+				"?findings :hasValue ?value.\n" +
+				"?value :hasValueValue ?valueValue.\n" +
+				"?value :hasTime ?time.\n" +
 				"}";
 		return execSelectQuery(queryText, selection);
 	}
 	
-	public static List<String[]> getEventList(String name) {
-		String selection = "?findings ?valueValue ?time";
+	public static List<String[]> getEventList() {
+		String selection = "?value ?valueValue ?time";
 		String queryText = prefixes +
 				"\nSELECT " + selection + "\n" +
 				"WHERE {\n" + 
-				"\t?human rdf:type :Human.\n" +
-				"\t?human :hasHumanName " + "\"" + name + "\"^^xsd:string.\n" +
-				"\t?human :hasEstimatedHumanState ?estimatedHumanState.\n" +
-				"\t?estimatedHumanState :hasCurrentVitalSigns ?findings.\n" +
-				"\t?findings :hasValue ?value.\n" +
-				"\t?value :hasValueValue ?valueValue.\n" +
-				"\t?value :hasTime ?time.\n" +
+				"?data a ?class.\n" +
+				"?class rdfs:subClassOf :CodedSimulatedInputData.\n" +
+				"?data :hasValue ?value.\n" +
+				"?value :hasValueValue ?valueValue.\n" +
+				"?value :hasTime ?time.\n" +
 				"}";
 		return execSelectQuery(queryText, selection);
 	}
 	
-	public static List<String[]> getEventTypes() {
-		String selection = "?subject";
+	public static List<String> getEventTypes() {
+		String selection = "?subClass ?superClass";
 		String queryText = prefixes +
 				"\nSELECT " + selection + "\n" +
 				"WHERE {\n" + 
-				"\t{?subject a owl:Class.}\n" +
-				"UNION\n" +
-				"{?individual a ?subject.}.\n" +
-				"?subject rdfs:subClassOf :Vital_sign_finding.\n" +
+				"?subClass rdfs:subClassOf ?superClass.\n" +
+				"?subClass rdfs:subClassOf* :Vital_sign_finding.\n" +
 				"}";
-		return execSelectQuery(queryText, selection);
+		//"FILTER (REGEX(STR(?superClass), \"#.+/\"))" +
+		List<String[]> queryOutput = execSelectQuery(queryText, selection);
+		List<String> subClass = new ArrayList<String>();
+		List<String> superClass = new ArrayList<String>();
+		for (int i = 0; i < queryOutput.size(); i++) {
+			subClass.add(queryOutput.get(i)[0]);
+			superClass.add(queryOutput.get(i)[1]);
+		}
+		
+		Set<String> set = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		Iterator<String> itr = subClass.iterator();
+		while (itr.hasNext()) {
+			String s = itr.next();
+			if (set.contains(s) || superClass.contains(s)) {
+				itr.remove();
+			} else {
+				set.add(s);
+			}
+		}
+		
+		List<String[]> output = new ArrayList<String[]>();
+		for (String s : subClass) {
+			String[] tmp = new String[1];
+			tmp[0] = s;
+			output.add(tmp);
+		}
+		return subClass;
 	}
 	
 	public static List<String[]> execSelectQuery(String queryText, String selection) {
