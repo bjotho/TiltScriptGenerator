@@ -26,6 +26,7 @@ public class ModelHandler {
 	private static String inputFileName = "uia_tilt_input.ttl";
 	private static String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
 	private static OntModel model;
+
 	private static String prefixes = 
 						"PREFIX : <http://www.uia.no/jpn/tilt#>\n" +
 						"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
@@ -153,7 +154,7 @@ public class ModelHandler {
 		//Convert List<List<RDFNode>> to List<String[]>
 		List<String[]> output = new ArrayList<String[]>();
 		try {
-			System.out.println(queryText);
+			//System.out.println(queryText);
 			for (List<RDFNode> triple : solutions) {
 				String[] tripleStringList = new String[select.length];
 				int i = 0;
@@ -234,5 +235,21 @@ public class ModelHandler {
 		}
 		ontModel.read(inFile, null, "Turtle");
 		return ontModel;
+	}
+	
+	public static String getInputFileName() {
+		return inputFileName;
+	}
+	
+	public static void setInputFileName(String fileName) {
+		ModelHandler.inputFileName = fileName;
+	}
+	
+	public static OntModel getModel() {
+		return model;
+	}
+
+	public static void setModel(OntModel model) {
+		ModelHandler.model = model;
 	}
 }

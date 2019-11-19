@@ -2,6 +2,7 @@ package tiltScriptGenerator;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -31,6 +32,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
+import org.apache.jena.ontology.OntModelSpec;
 
 
 @SuppressWarnings("serial")
@@ -75,7 +78,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		addEventPanel.setBackground(new Color(200, 225, 225));
 		addEventPanel.setLayout(gbl);
 		
-		c.insets = new Insets(10, 30, 10, 30);
+		c.insets = new Insets(10, 20, 10, 20);
 		c.ipadx = 75;
 		c.ipady = 10;
 		
@@ -210,20 +213,9 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 						"You have unsaved changes which will be lost if \nyou proceed to read a new file.\nAre you sure you wish to discard these changes?",
 						"Unsaved changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 			}
-			
+			// If the user pressed "Discard", show a FileDialog where the user can choose a patient-file where events will be read from
 			if (unsavedWarningSelection == 1) {
-				this.eventScriptTableModel.setRowCount(0);
-				
-				List<String[]> initialFindings = ModelHandler.getInitialFindings();
-				for (String[] triple : initialFindings) {
-					this.addEvent(triple);
-				}
-				List<String[]> eventList = ModelHandler.getEventList();
-				for (String[] triple : eventList) {
-					this.addEvent(triple);
-				}
-				
-				showSaveWarning = false;
+				showFileDialog();
 			}
 			
 		} else if (e.getSource() == this.removeEventsButton) {
@@ -252,6 +244,43 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		} else if (e.getSource() == this.saveScriptButton) {
 			System.out.println("Save script");
 			this.showSaveWarning = false;
+		}
+	}
+	
+	public void readEvents() {
+		this.eventScriptTableModel.setRowCount(0);
+		
+		List<String[]> initialFindings = ModelHandler.getInitialFindings();
+		for (String[] triple : initialFindings) {
+			this.addEvent(triple);
+		}
+		List<String[]> eventList = ModelHandler.getEventList();
+		for (String[] triple : eventList) {
+			this.addEvent(triple);
+		}
+		
+		this.showSaveWarning = false;
+	}
+	
+	// Show a FileDialog where the user can choose a patient-file where events will be read from
+	public void showFileDialog() {
+		FileDialog fd = new FileDialog(jf, "Please choose patient-file:", FileDialog.LOAD);
+		
+		fd.setDirectory("C:\\");
+		fd.setFile("*.ttl");
+		fd.setVisible(true);
+		
+		String filename = fd.getFile();
+		
+		if (filename == null) {
+			System.out.println("You cancelled the choice");
+			return;
+		} else {
+			System.out.println("You chose " + filename);
+			
+			ModelHandler.setInputFileName(filename);
+			ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
+			readEvents();
 		}
 	}
 	
