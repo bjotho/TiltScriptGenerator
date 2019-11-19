@@ -81,7 +81,6 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		
 		List<String> eventTypeList = ModelHandler.getEventTypes();
 		String[] eventTypeArray = new String[eventTypeList.size()];
-		//eventTypeArray[0] = "Select event type";
 		int ix = 0;
 		for (String s : eventTypeList) {
 			eventTypeArray[ix] = s;
@@ -209,21 +208,21 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 				Object[] options = {"Cancel", "Discard"};
 				unsavedWarningSelection = JOptionPane.showOptionDialog(this,
 						"You have unsaved changes which will be lost if \nyou proceed to read a new file.\nAre you sure you wish to discard these changes?",
-						"Unsaved changes",
-						JOptionPane.YES_NO_CANCEL_OPTION,
-						JOptionPane.QUESTION_MESSAGE,
-						null,
-						options,
-						options[1]);
+						"Unsaved changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 			}
 			
 			if (unsavedWarningSelection == 1) {
 				this.eventScriptTableModel.setRowCount(0);
-				List<String[]> initialBodyTempReadings = ModelHandler.getInitialFindings("Hans");
-			
-				for (String[] triple : initialBodyTempReadings) {
+				
+				List<String[]> initialFindings = ModelHandler.getInitialFindings();
+				for (String[] triple : initialFindings) {
 					this.addEvent(triple);
 				}
+				List<String[]> eventList = ModelHandler.getEventList();
+				for (String[] triple : eventList) {
+					this.addEvent(triple);
+				}
+				
 				showSaveWarning = false;
 			}
 			
@@ -236,7 +235,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			
 		} else if (e.getSource() == this.editEventButton) {
 			System.out.println("Edit event");
-			List<String[]> triples = ModelHandler.getInitialFindings("Hans");
+			List<String[]> triples = ModelHandler.getEventList();
 			boolean printOutput = true;
 			if (printOutput) {
 				for (String[] triple : triples) {

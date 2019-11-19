@@ -1708,8 +1708,7 @@ SCTID: 106049001
 <http://www.uia.no/jpn/tilt#Hans_Start_On_examination_systolic_blood__pressure_reading> rdf:type owl:NamedIndividual ,
                                                                                                  <http://www.uia.no/jpn/tilt#On_examination_Systolic_blood_pressure_reading> ;
                                                                                         <http://www.uia.no/jpn/tilt#hasValue> <http://www.uia.no/jpn/tilt#Hans_Start_On_examination_systolic_blood__pressure_reading> ;
-                                                                                        <http://www.uia.no/jpn/tilt#isAbout> <http://www.uia.no/jpn/tilt#Hans_Systolic_blood_pressure> ;
-                                                                                        <http://www.uia.no/jpn/tilt#hasSCTID> "163030003"^^xsd:long .
+                                                                                        <http://www.uia.no/jpn/tilt#isAbout> <http://www.uia.no/jpn/tilt#Hans_Systolic_blood_pressure> .
 
 
 ###  http://www.uia.no/jpn/tilt#Hans_Start_Pulse_Rate_Value
@@ -1725,8 +1724,7 @@ SCTID: 106049001
 <http://www.uia.no/jpn/tilt#Hans_Start_Pulse_rate_finding> rdf:type owl:NamedIndividual ,
                                                                     <http://www.uia.no/jpn/tilt#Pulse_rate_finding> ;
                                                            <http://www.uia.no/jpn/tilt#hasValue> <http://www.uia.no/jpn/tilt#Hans_Start_Pulse_Rate_Value> ;
-                                                           <http://www.uia.no/jpn/tilt#isAbout> <http://www.uia.no/jpn/tilt#Hans_Pulse_function> ;
-                                                           <http://www.uia.no/jpn/tilt#hasSCTID> "301147003"^^xsd:long .
+                                                           <http://www.uia.no/jpn/tilt#isAbout> <http://www.uia.no/jpn/tilt#Hans_Pulse_function> .
 
 
 ###  http://www.uia.no/jpn/tilt#Hans_Start_Respiratory_Rate_Value
@@ -1743,7 +1741,7 @@ SCTID: 106049001
                                                                           <http://www.uia.no/jpn/tilt#Finding_of_rate_of_respiration_finding> ;
                                                                  <http://www.uia.no/jpn/tilt#hasValue> <http://www.uia.no/jpn/tilt#Hans_Start_Respiratory_Rate_Value> ;
                                                                  <http://www.uia.no/jpn/tilt#isAbout> <http://www.uia.no/jpn/tilt#Hans_Respiratory_rate> ;
-                                                                 <http://www.uia.no/jpn/tilt#hasSCTID> "301283003"^^xsd:long .
+                                                                 <http://www.uia.no/jpn/tilt#hasSCTID> "301283003"^^xsd:string .
 
 
 ###  http://www.uia.no/jpn/tilt#Hans_Start_Systolic_Blood_Pressure_Value
@@ -1760,7 +1758,7 @@ SCTID: 106049001
                                                               <http://www.uia.no/jpn/tilt#Finding_of_temperature_of_skin> ;
                                                      <http://www.uia.no/jpn/tilt#hasValue> <http://www.uia.no/jpn/tilt#Hans_Start_Temp_Value> ;
                                                      <http://www.uia.no/jpn/tilt#isAbout> <http://www.uia.no/jpn/tilt#Hans_Temp> ;
-                                                     <http://www.uia.no/jpn/tilt#hasSCTID> "297976006"^^xsd:long .
+                                                     <http://www.uia.no/jpn/tilt#hasSCTID> "297976006"^^xsd:string .
 
 
 ###  http://www.uia.no/jpn/tilt#Hans_Start_Temp_Value
@@ -1776,13 +1774,13 @@ SCTID: 106049001
 ###  http://www.uia.no/jpn/tilt#Hans_Systolic_blood_pressure
 <http://www.uia.no/jpn/tilt#Hans_Systolic_blood_pressure> rdf:type owl:NamedIndividual ,
                                                                    <http://www.uia.no/jpn/tilt#Systolic_blood_pressure> ;
-                                                          <http://www.uia.no/jpn/tilt#hasSCTID> "271649006"^^xsd:long .
+                                                          <http://www.uia.no/jpn/tilt#hasSCTID> "271649006"^^xsd:string .
 
 
 ###  http://www.uia.no/jpn/tilt#Hans_Temp
 <http://www.uia.no/jpn/tilt#Hans_Temp> rdf:type owl:NamedIndividual ,
                                                 <http://www.uia.no/jpn/tilt#Body_temperature> ;
-                                       <http://www.uia.no/jpn/tilt#hasSCTID> "386725007"^^xsd:long .
+                                       <http://www.uia.no/jpn/tilt#hasSCTID> "386725007"^^xsd:string .
 
 
 ###  http://www.uia.no/jpn/tilt#Hans_Temp_Value

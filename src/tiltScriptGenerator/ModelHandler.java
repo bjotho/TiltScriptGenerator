@@ -49,32 +49,41 @@ public class ModelHandler {
 		return execSelectQuery(queryText, selection);
 	}
 	
-	public static List<String[]> getInitialFindings(String name) {
-		String selection = "?findings ?valueValue ?time";
+	public static List<String[]> getInitialFindings() {
+		String selection = "?eventType ?valueValue ?time";
 		String queryText = prefixes +
-				"\nSELECT " + selection + "\n" +
-				"WHERE {\n" + 
-				"?human rdf:type :Human.\n" +
-				"?human :hasHumanName " + "\"" + name + "\"^^xsd:string.\n" +
-				"?human :hasEstimatedHumanState ?estimatedHumanState.\n" +
-				"?estimatedHumanState :hasCurrentVitalSigns ?findings.\n" +
-				"?findings :hasValue ?value.\n" +
+				"\nSELECT DISTINCT " + selection + "\n" +
+				"WHERE {\n" +
+				"?subClass rdfs:subClassOf* :Vital_sign_finding.\n" +
+				"?finding a ?subClass.\n" +
+				"?finding :hasValue ?value.\n" +
 				"?value :hasValueValue ?valueValue.\n" +
 				"?value :hasTime ?time.\n" +
+				"FILTER (?time = \"0\"^^xsd:string).\n" +
+				"?finding :hasSCTID ?findingSCTID.\n" +
+				"?eventType rdfs:subClassOf* :Vital_sign_finding.\n" +
+				"?eventType owl:equivalentClass ?eventSCTID.\n" +
+				"?eventSCTID owl:hasValue ?sctidValue.\n" +
+				"FILTER (?findingSCTID = ?sctidValue).\n" +
 				"}";
 		return execSelectQuery(queryText, selection);
 	}
 	
 	public static List<String[]> getEventList() {
-		String selection = "?value ?valueValue ?time";
+		String selection = "?eventType ?valueValue ?time";
 		String queryText = prefixes +
-				"\nSELECT " + selection + "\n" +
+				"\nSELECT DISTINCT " + selection + "\n" +
 				"WHERE {\n" + 
-				"?data a ?class.\n" +
 				"?class rdfs:subClassOf :CodedSimulatedInputData.\n" +
-				"?data :hasValue ?value.\n" +
+				"?finding a ?class.\n" +
+				"?finding :hasValue ?value.\n" +
 				"?value :hasValueValue ?valueValue.\n" +
 				"?value :hasTime ?time.\n" +
+				"?finding :hasSCTID ?findingSCTID.\n" +
+				"?eventType rdfs:subClassOf* :Vital_sign_finding.\n" +
+				"?eventType owl:equivalentClass ?eventSCTID.\n" +
+				"?eventSCTID owl:hasValue ?sctidValue.\n" +
+				"FILTER (?findingSCTID = ?sctidValue).\n" +
 				"}";
 		return execSelectQuery(queryText, selection);
 	}
@@ -105,13 +114,6 @@ public class ModelHandler {
 			} else {
 				set.add(s);
 			}
-		}
-		
-		List<String[]> output = new ArrayList<String[]>();
-		for (String s : subClass) {
-			String[] tmp = new String[1];
-			tmp[0] = s;
-			output.add(tmp);
 		}
 		return subClass;
 	}
@@ -151,7 +153,7 @@ public class ModelHandler {
 		//Convert List<List<RDFNode>> to List<String[]>
 		List<String[]> output = new ArrayList<String[]>();
 		try {
-			//System.out.println(queryText);
+			System.out.println(queryText);
 			for (List<RDFNode> triple : solutions) {
 				String[] tripleStringList = new String[select.length];
 				int i = 0;
