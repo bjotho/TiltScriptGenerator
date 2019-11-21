@@ -185,6 +185,9 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		Arrays.sort(selectedEvents);
 		
 		for (int i = selectedEvents.length - 1; i >= 0; i--) {
+			// Make it possible to sort table, and still be able to remove selected events
+			selectedEvents[i] = this.eventScriptTable.convertRowIndexToModel(selectedEvents[i]);
+			
 	        this.eventScriptTableModel.removeRow(selectedEvents[i]);
 	        this.showSaveWarning = true;
 	    }
@@ -266,7 +269,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 	public void showFileDialog() {
 		FileDialog fd = new FileDialog(jf, "Please choose patient-file:", FileDialog.LOAD);
 		
-		fd.setDirectory("C:\\");
+		fd.setDirectory("/patients");
 		fd.setFile("*.ttl");
 		fd.setVisible(true);
 		
@@ -276,6 +279,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			System.out.println("You cancelled the choice");
 			return;
 		} else {
+			filename = "patients/" + filename;
 			System.out.println("You chose " + filename);
 			
 			ModelHandler.setInputFileName(filename);
