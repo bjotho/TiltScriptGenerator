@@ -273,10 +273,10 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		String filename = fd.getFile();
 		
 		if (filename == null) {
-			System.out.println("You cancelled the choice");
+			//System.out.println("You cancelled the choice");
 			return;
 		} else {
-			System.out.println("You chose " + filename);
+			//System.out.println("You chose " + filename);
 			
 			ModelHandler.setInputFileName(filename);
 			ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
