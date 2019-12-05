@@ -1,0 +1,1596 @@
+@prefix : <#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+[ rdf:type owl:Ontology
+ ] .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.uia.no/jpn/tilt#hasActiveIngredient
+<http://www.uia.no/jpn/tilt#hasActiveIngredient> rdf:type owl:ObjectProperty ;
+                                                 owl:inverseOf <http://www.uia.no/jpn/tilt#hasDrugClass> ;
+                                                 rdfs:domain <http://www.uia.no/jpn/tilt#DrugClass> ;
+                                                 rdfs:range <http://www.uia.no/jpn/tilt#ActiveIngredient> .
+
+
+###  http://www.uia.no/jpn/tilt#hasAmountInOneDosageForm
+<http://www.uia.no/jpn/tilt#hasAmountInOneDosageForm> rdf:type owl:ObjectProperty ;
+                                                      rdfs:domain <http://www.uia.no/jpn/tilt#Ingredient> ;
+                                                      rdfs:range <http://www.uia.no/jpn/tilt#Value> .
+
+
+###  http://www.uia.no/jpn/tilt#hasCurrentVitalSigns
+<http://www.uia.no/jpn/tilt#hasCurrentVitalSigns> rdf:type owl:ObjectProperty ;
+                                                  rdfs:domain <http://www.uia.no/jpn/tilt#HumanState> ;
+                                                  rdfs:range <http://www.uia.no/jpn/tilt#Vital_sign_finding> .
+
+
+###  http://www.uia.no/jpn/tilt#hasDefinedDailyDose
+<http://www.uia.no/jpn/tilt#hasDefinedDailyDose> rdf:type owl:ObjectProperty ;
+                                                 rdfs:range <http://www.uia.no/jpn/tilt#Value> .
+
+
+###  http://www.uia.no/jpn/tilt#hasDrug
+<http://www.uia.no/jpn/tilt#hasDrug> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <http://www.uia.no/jpn/tilt#Ingredient> ;
+                                     rdfs:range <http://www.uia.no/jpn/tilt#Drug> .
+
+
+###  http://www.uia.no/jpn/tilt#hasDrugClass
+<http://www.uia.no/jpn/tilt#hasDrugClass> rdf:type owl:ObjectProperty ;
+                                          rdfs:domain <http://www.uia.no/jpn/tilt#ActiveIngredient> ;
+                                          rdfs:range <http://www.uia.no/jpn/tilt#DrugClass> .
+
+
+###  http://www.uia.no/jpn/tilt#hasDrugClasses
+<http://www.uia.no/jpn/tilt#hasDrugClasses> rdf:type owl:ObjectProperty ;
+                                            owl:inverseOf <http://www.uia.no/jpn/tilt#hasInteraction> ;
+                                            rdfs:domain <http://www.uia.no/jpn/tilt#Interaction> ;
+                                            rdfs:range <http://www.uia.no/jpn/tilt#DrugClass> .
+
+
+###  http://www.uia.no/jpn/tilt#hasEstimatedHumanState
+<http://www.uia.no/jpn/tilt#hasEstimatedHumanState> rdf:type owl:ObjectProperty ;
+                                                    rdfs:domain <http://www.uia.no/jpn/tilt#Human> ;
+                                                    rdfs:range <http://www.uia.no/jpn/tilt#HumanState> .
+
+
+###  http://www.uia.no/jpn/tilt#hasIngredient
+<http://www.uia.no/jpn/tilt#hasIngredient> rdf:type owl:ObjectProperty ;
+                                           rdfs:domain <http://www.uia.no/jpn/tilt#Drug> ;
+                                           rdfs:range <http://www.uia.no/jpn/tilt#Ingredient> .
+
+
+###  http://www.uia.no/jpn/tilt#hasInteraction
+<http://www.uia.no/jpn/tilt#hasInteraction> rdf:type owl:ObjectProperty ;
+                                            rdfs:domain <http://www.uia.no/jpn/tilt#DrugClass> ;
+                                            rdfs:range <http://www.uia.no/jpn/tilt#Interaction> .
+
+
+###  http://www.uia.no/jpn/tilt#hasObservableEntity
+<http://www.uia.no/jpn/tilt#hasObservableEntity> rdf:type owl:ObjectProperty ;
+                                                 rdfs:domain <http://www.uia.no/jpn/tilt#Human> ;
+                                                 rdfs:range <http://www.uia.no/jpn/tilt#Observable_entity> .
+
+
+###  http://www.uia.no/jpn/tilt#hasSimulatedInputData
+<http://www.uia.no/jpn/tilt#hasSimulatedInputData> rdf:type owl:ObjectProperty ;
+                                                   rdfs:domain <http://www.uia.no/jpn/tilt#SimulatedInputDataSequence> ;
+                                                   rdfs:range <http://www.uia.no/jpn/tilt#SimulatedInputData> .
+
+
+###  http://www.uia.no/jpn/tilt#hasStrengthOfDosageForm
+<http://www.uia.no/jpn/tilt#hasStrengthOfDosageForm> rdf:type owl:ObjectProperty ;
+                                                     rdfs:range <http://www.uia.no/jpn/tilt#Value> .
+
+
+###  http://www.uia.no/jpn/tilt#hasValue
+<http://www.uia.no/jpn/tilt#hasValue> rdf:type owl:ObjectProperty ,
+                                               owl:InverseFunctionalProperty ;
+                                      rdfs:range <http://www.uia.no/jpn/tilt#Value> .
+
+
+###  http://www.uia.no/jpn/tilt#isAbout
+<http://www.uia.no/jpn/tilt#isAbout> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.uia.no/jpn/tilt#Value
+<http://www.uia.no/jpn/tilt#Value> rdf:type owl:DatatypeProperty .
+
+
+###  http://www.uia.no/jpn/tilt#hasAge
+<http://www.uia.no/jpn/tilt#hasAge> rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf owl:topDataProperty ;
+                                    rdfs:range xsd:int .
+
+
+###  http://www.uia.no/jpn/tilt#hasArticleNumber
+<http://www.uia.no/jpn/tilt#hasArticleNumber> rdf:type owl:DatatypeProperty ;
+                                              rdfs:subPropertyOf owl:topDataProperty ;
+                                              rdf:type owl:FunctionalProperty ;
+                                              rdfs:domain [ rdf:type owl:Class ;
+                                                            owl:unionOf ( <http://www.uia.no/jpn/tilt#Drug>
+                                                                          <http://www.uia.no/jpn/tilt#DrugSimulatedInputData>
+                                                                        )
+                                                          ] ;
+                                              rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasDosageForm
+<http://www.uia.no/jpn/tilt#hasDosageForm> rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf owl:topDataProperty ;
+                                           rdf:type owl:FunctionalProperty ;
+                                           rdfs:domain <http://www.uia.no/jpn/tilt#Drug> ;
+                                           rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasDrugClassName
+<http://www.uia.no/jpn/tilt#hasDrugClassName> rdf:type owl:DatatypeProperty ;
+                                              rdfs:subPropertyOf owl:topDataProperty ;
+                                              rdf:type owl:FunctionalProperty ;
+                                              rdfs:domain <http://www.uia.no/jpn/tilt#DrugClass> ;
+                                              rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasDrugName
+<http://www.uia.no/jpn/tilt#hasDrugName> rdf:type owl:DatatypeProperty ;
+                                         rdfs:subPropertyOf owl:topDataProperty ;
+                                         rdf:type owl:FunctionalProperty ;
+                                         rdfs:domain <http://www.uia.no/jpn/tilt#Drug> ;
+                                         rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasHumanAddress
+<http://www.uia.no/jpn/tilt#hasHumanAddress> rdf:type owl:DatatypeProperty ;
+                                             rdfs:domain <http://www.uia.no/jpn/tilt#Human> ;
+                                             rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasHumanName
+<http://www.uia.no/jpn/tilt#hasHumanName> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain <http://www.uia.no/jpn/tilt#Human> ;
+                                          rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasIngredientName
+<http://www.uia.no/jpn/tilt#hasIngredientName> rdf:type owl:DatatypeProperty ;
+                                               rdfs:subPropertyOf owl:topDataProperty ;
+                                               rdf:type owl:FunctionalProperty ;
+                                               rdfs:domain <http://www.uia.no/jpn/tilt#Ingredient> ;
+                                               rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasInteractionDescription
+<http://www.uia.no/jpn/tilt#hasInteractionDescription> rdf:type owl:DatatypeProperty ;
+                                                       rdfs:subPropertyOf owl:topDataProperty ;
+                                                       rdf:type owl:FunctionalProperty ;
+                                                       rdfs:domain <http://www.uia.no/jpn/tilt#Interaction> ;
+                                                       rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasInteractionName
+<http://www.uia.no/jpn/tilt#hasInteractionName> rdf:type owl:DatatypeProperty ;
+                                                rdfs:subPropertyOf owl:topDataProperty ;
+                                                rdf:type owl:FunctionalProperty ;
+                                                rdfs:domain <http://www.uia.no/jpn/tilt#Interaction> ;
+                                                rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasName
+<http://www.uia.no/jpn/tilt#hasName> rdf:type owl:DatatypeProperty ;
+                                     rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasNumOfDosageForms
+<http://www.uia.no/jpn/tilt#hasNumOfDosageForms> rdf:type owl:DatatypeProperty ;
+                                                 rdfs:subPropertyOf owl:topDataProperty ;
+                                                 rdf:type owl:FunctionalProperty ;
+                                                 rdfs:domain <http://www.uia.no/jpn/tilt#Drug> ;
+                                                 rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasSCTID
+<http://www.uia.no/jpn/tilt#hasSCTID> rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf owl:topDataProperty ;
+                                      rdfs:domain <http://www.uia.no/jpn/tilt#SNOMED_CT_CONCEPT> ;
+                                      rdfs:range xsd:long .
+
+
+###  http://www.uia.no/jpn/tilt#hasTime
+<http://www.uia.no/jpn/tilt#hasTime> rdf:type owl:DatatypeProperty ;
+                                     rdfs:subPropertyOf owl:topDataProperty ;
+                                     rdf:type owl:FunctionalProperty ;
+                                     rdfs:domain <http://www.uia.no/jpn/tilt#Value> ;
+                                     rdfs:range xsd:long .
+
+
+###  http://www.uia.no/jpn/tilt#hasTypeName
+<http://www.uia.no/jpn/tilt#hasTypeName> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain <http://www.uia.no/jpn/tilt#SimulatedInputData> ;
+                                         rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasValueType
+<http://www.uia.no/jpn/tilt#hasValueType> rdf:type owl:DatatypeProperty ;
+                                          rdfs:subPropertyOf owl:topDataProperty ;
+                                          rdf:type owl:FunctionalProperty ;
+                                          rdfs:domain <http://www.uia.no/jpn/tilt#Value> ;
+                                          rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasValueUnit
+<http://www.uia.no/jpn/tilt#hasValueUnit> rdf:type owl:DatatypeProperty ;
+                                          rdfs:subPropertyOf owl:topDataProperty ;
+                                          rdf:type owl:FunctionalProperty ;
+                                          rdfs:domain <http://www.uia.no/jpn/tilt#Value> ;
+                                          rdfs:range xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#hasValueValue
+<http://www.uia.no/jpn/tilt#hasValueValue> rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf owl:topDataProperty ;
+                                           rdf:type owl:FunctionalProperty ;
+                                           rdfs:domain <http://www.uia.no/jpn/tilt#Value> ;
+                                           rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.uia.no/jpn/tilt#Able_to_process_information
+<http://www.uia.no/jpn/tilt#Able_to_process_information> rdf:type owl:Class ;
+                                                         owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                               owl:hasValue "307083000"^^xsd:long
+                                                                             ] ;
+                                                         rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_related_to_abillity_to_process_information> ;
+                                                         rdfs:comment """Able to process information (finding)
+
+SCTID: 307083000
+
+307083000 | Able to process information (finding) |
+  en   Able to process information
+  en   Able to process information (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#ActiveIngredient
+<http://www.uia.no/jpn/tilt#ActiveIngredient> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.uia.no/jpn/tilt#Ingredient> .
+
+
+###  http://www.uia.no/jpn/tilt#Apnea
+<http://www.uia.no/jpn/tilt#Apnea> rdf:type owl:Class ;
+                                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                         owl:hasValue "1023001"^^xsd:long
+                                                       ] ;
+                                   rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding> ;
+                                   rdfs:comment """Apnea (finding)
+
+SCTID: 1023001
+
+1023001 | Apnea (finding) |
+  en   Apnea
+  en   Apnoeic
+  en   Apnoea
+  en   Apneic
+  en   Has stopped breathing
+  en   Not breathing
+  en   Apnea (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Awake
+<http://www.uia.no/jpn/tilt#Awake> rdf:type owl:Class ;
+                                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                         owl:hasValue "248218005"^^xsd:long
+                                                       ] ;
+                                   rdfs:subClassOf <http://www.uia.no/jpn/tilt#Consciousness_related_finding> ;
+                                   rdfs:comment """Awake (finding)
+
+SCTID: 248218005
+
+248218005 | Awake (finding) |
+  en   Awake
+  en   Clear consciousness
+  en   Wide awake
+  en   Awake (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Blood_pressure
+<http://www.uia.no/jpn/tilt#Blood_pressure> rdf:type owl:Class ;
+                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                  owl:hasValue "75367002"^^xsd:long
+                                                                ] ;
+                                            rdfs:subClassOf <http://www.uia.no/jpn/tilt#Cardiovascular_mesure> ;
+                                            rdfs:comment """Blood pressure (observable entity)
+
+SCTID: 75367002
+
+75367002 | Blood pressure (observable entity) |
+  en   Blood pressure
+  en   Blood pressure (observable entity)
+  en   BP - Blood pressure""" .
+
+
+###  http://www.uia.no/jpn/tilt#Blood_pressure_finding
+<http://www.uia.no/jpn/tilt#Blood_pressure_finding> rdf:type owl:Class ;
+                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                          owl:hasValue "392570002"^^xsd:long
+                                                                        ] ;
+                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Vital_sign_finding> ;
+                                                    rdfs:comment """Blood pressure finding (finding)
+
+SCTID: 392570002
+
+392570002 | Blood pressure finding (finding) |
+  en   Blood pressure finding (finding)
+  en   Blood pressure finding""" .
+
+
+###  http://www.uia.no/jpn/tilt#Blood_vessel_feature
+<http://www.uia.no/jpn/tilt#Blood_vessel_feature> rdf:type owl:Class ;
+                                                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                        owl:hasValue "364087003"^^xsd:long
+                                                                      ] ;
+                                                  rdfs:subClassOf <http://www.uia.no/jpn/tilt#Cardiovascular_observable> ;
+                                                  rdfs:comment """Blood vessel feature (observable entity)
+
+SCTID: 364087003
+
+364087003 | Blood vessel feature (observable entity) |
+  en   Blood vessel feature
+  en   Blood vessel feature (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Body_temperature
+<http://www.uia.no/jpn/tilt#Body_temperature> rdf:type owl:Class ;
+                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                    owl:hasValue "386725007"^^xsd:long
+                                                                  ] ;
+                                              rdfs:subClassOf <http://www.uia.no/jpn/tilt#General_characteristic_of_patient> ;
+                                              rdfs:comment """Body temperature (observable entity)
+
+SCTID: 386725007
+
+386725007 | Body temperature (observable entity) |
+  en   Body temperature (observable entity)
+  en   Body temperature
+  en   BT - Body temperature
+  en   Body temperature - observation""" .
+
+
+###  http://www.uia.no/jpn/tilt#Body_temperature_finding
+<http://www.uia.no/jpn/tilt#Body_temperature_finding> rdf:type owl:Class ;
+                                                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                            owl:hasValue "105723007"^^xsd:long
+                                                                          ] ;
+                                                      rdfs:subClassOf <http://www.uia.no/jpn/tilt#Vital_sign_finding> ;
+                                                      rdfs:comment """Body temperature finding (finding)
+
+SCTID: 105723007
+
+105723007 | Body temperature finding (finding) |
+  en   Body temperature finding
+  en   Body temperature finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Cardiovascular_function
+<http://www.uia.no/jpn/tilt#Cardiovascular_function> rdf:type owl:Class ;
+                                                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                           owl:hasValue "70337006"^^xsd:long
+                                                                         ] ;
+                                                     rdfs:subClassOf <http://www.uia.no/jpn/tilt#Function> ;
+                                                     rdfs:comment """Cardiovascular function (observable entity)
+
+SCTID: 70337006
+
+70337006 | Cardiovascular function (observable entity) |
+  en   Cardiovascular function
+  en   Cardiovascular function (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Cardiovascular_mesure
+<http://www.uia.no/jpn/tilt#Cardiovascular_mesure> rdf:type owl:Class ;
+                                                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                         owl:hasValue "310611001"^^xsd:long
+                                                                       ] ;
+                                                   rdfs:subClassOf <http://www.uia.no/jpn/tilt#Cardiovascular_observable> ;
+                                                   rdfs:comment """Cardiovascular measure (observable entity)
+
+SCTID: 310611001
+
+310611001 | Cardiovascular measure (observable entity) |
+  en   Cardiovascular measure
+  en   Cardiovascular measurement
+  en   Cardiovascular measure (observable entity)
+  en   Cardiovascular measurement - observation""" .
+
+
+###  http://www.uia.no/jpn/tilt#Cardiovascular_observable
+<http://www.uia.no/jpn/tilt#Cardiovascular_observable> rdf:type owl:Class ;
+                                                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                             owl:hasValue "364066008"^^xsd:long
+                                                                           ] ;
+                                                       rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_history_examination_observable> ;
+                                                       rdfs:comment """Cardiovascular observable (observable entity)
+
+SCTID: 364066008
+
+364066008 | Cardiovascular observable (observable entity) |
+  en   Cardiovascular observable
+  en   Cardiovascular observable (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Clinical_finding
+<http://www.uia.no/jpn/tilt#Clinical_finding> rdf:type owl:Class ;
+                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                    owl:hasValue "404684003"^^xsd:long
+                                                                  ] ;
+                                              rdfs:subClassOf <http://www.uia.no/jpn/tilt#SNOMED_CT_CONCEPT> ;
+                                              rdfs:comment """Clinical finding (finding)
+
+SCTID: 404684003
+
+404684003 | Clinical finding (finding) |
+  en   Clinical finding (finding)
+  en   Clinical finding""" .
+
+
+###  http://www.uia.no/jpn/tilt#Clinical_history_and_observation_finding
+<http://www.uia.no/jpn/tilt#Clinical_history_and_observation_finding> rdf:type owl:Class ;
+                                                                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                            owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                            owl:hasValue "250171008"^^xsd:long
+                                                                                          ] ;
+                                                                      rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_finding> ;
+                                                                      rdfs:comment """Clinical history and observation findings (finding)
+
+SCTID: 250171008
+
+250171008 | Clinical history and observation findings (finding) |
+  en   Clinical history and observation findings
+  en   Clinical history and observation findings (finding)
+  en   Clinical history and observations""" .
+
+
+###  http://www.uia.no/jpn/tilt#Clinical_history_examination_observable
+<http://www.uia.no/jpn/tilt#Clinical_history_examination_observable> rdf:type owl:Class ;
+                                                                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                           owl:hasValue "363788007"^^xsd:long
+                                                                                         ] ;
+                                                                     rdfs:subClassOf <http://www.uia.no/jpn/tilt#Observable_entity> ;
+                                                                     rdfs:comment """Clinical history/examination observable (observable entity)
+
+SCTID: 363788007
+
+363788007 | Clinical history/examination observable (observable entity) |
+  en   Clinical history/examination observable (observable entity)
+  en   Clinical history/examination observable""" .
+
+
+###  http://www.uia.no/jpn/tilt#CodedSimulatedInputData
+<http://www.uia.no/jpn/tilt#CodedSimulatedInputData> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.uia.no/jpn/tilt#SimulatedInputData> .
+
+
+###  http://www.uia.no/jpn/tilt#Cognitive_function_finding
+<http://www.uia.no/jpn/tilt#Cognitive_function_finding> rdf:type owl:Class ;
+                                                        owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                              owl:hasValue "373930000"^^xsd:long
+                                                                            ] ;
+                                                        rdfs:subClassOf <http://www.uia.no/jpn/tilt#Mental_state,_behavior_and/or_psychosocial_function_finding> ;
+                                                        owl:disjointWith <http://www.uia.no/jpn/tilt#Mentalstate_state_finding> ;
+                                                        rdfs:comment """Cognitive function finding (finding)
+
+SCTID: 373930000
+
+373930000 | Cognitive function finding (finding) |
+  en   Cognitive function finding (finding)
+  en   Cognitive function finding
+  en   Cognitive function observations""" .
+
+
+###  http://www.uia.no/jpn/tilt#Consciousness_related_finding
+<http://www.uia.no/jpn/tilt#Consciousness_related_finding> rdf:type owl:Class ;
+                                                           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                 owl:hasValue "106167005"^^xsd:long
+                                                                               ] ;
+                                                           rdfs:subClassOf <http://www.uia.no/jpn/tilt#Consciousness_and/or_awareness_finding> ;
+                                                           owl:disjointWith <http://www.uia.no/jpn/tilt#Finding_of_mental_alertness> ;
+                                                           rdfs:comment """Consciousness related finding (finding)
+
+SCTID: 106167005
+
+106167005 | Consciousness related finding (finding) |
+  en   Consciousness related finding
+  en   Consciousness related finding (finding)
+  en   Consciousness""" .
+
+
+###  http://www.uia.no/jpn/tilt#Diastolic_blood_pressure
+<http://www.uia.no/jpn/tilt#Diastolic_blood_pressure> rdf:type owl:Class ;
+                                                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                            owl:hasValue "271650006"^^xsd:long
+                                                                          ] ;
+                                                      rdfs:subClassOf <http://www.uia.no/jpn/tilt#Blood_pressure> ,
+                                                                      <http://www.uia.no/jpn/tilt#Vascular_measure> ;
+                                                      rdfs:comment """Diastolic blood pressure (observable entity)
+
+SCTID: 271650006
+
+271650006 | Diastolic blood pressure (observable entity) |
+  en   Diastolic blood pressure
+  en   Diastolic blood pressure (observable entity)
+  en   DAP - Diastolic arterial pressure
+  en   DBP - Diastolic blood pressure
+  en   Diastolic arterial pressure""" .
+
+
+###  http://www.uia.no/jpn/tilt#Drug
+<http://www.uia.no/jpn/tilt#Drug> rdf:type owl:Class ;
+                                  rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasDefinedDailyDose> ;
+                                                                           owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                           owl:onClass <http://www.uia.no/jpn/tilt#Value>
+                                                                         ]
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasArticleNumber> ;
+                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                           owl:onDataRange xsd:string
+                                                                         ]
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasDosageForm> ;
+                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                           owl:onDataRange [ rdf:type rdfs:Datatype ;
+                                                                                             owl:intersectionOf ( xsd:string
+                                                                                                                  [ rdf:type rdfs:Datatype ;
+                                                                                                                    owl:oneOf [ rdf:type rdf:List ;
+                                                                                                                                rdf:first "capsule" ;
+                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                           rdf:first "other" ;
+                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                      rdf:first "pills" ;
+                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                 rdf:first "suppository" ;
+                                                                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                            rdf:first "tablets" ;
+                                                                                                                                                                            rdf:rest rdf:nil
+                                                                                                                                                                          ]
+                                                                                                                                                               ]
+                                                                                                                                                    ]
+                                                                                                                                         ]
+                                                                                                                              ]
+                                                                                                                  ]
+                                                                                                                )
+                                                                                           ]
+                                                                         ]
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasDrugName> ;
+                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                           owl:onDataRange xsd:string
+                                                                         ]
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasNumOfDosageForms> ;
+                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                           owl:onDataRange xsd:string
+                                                                         ]
+                                                                       ) ;
+                                                    rdf:type owl:Class
+                                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.uia.no/jpn/tilt#hasIngredient> ;
+                                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass <http://www.uia.no/jpn/tilt#Ingredient>
+                                                  ] .
+
+
+###  http://www.uia.no/jpn/tilt#DrugClass
+<http://www.uia.no/jpn/tilt#DrugClass> rdf:type owl:Class ;
+                                       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasActiveIngredient> ;
+                                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass <http://www.uia.no/jpn/tilt#ActiveIngredient>
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasInteraction> ;
+                                                         owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass <http://www.uia.no/jpn/tilt#Interaction>
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasDrugClassName> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onDataRange xsd:string
+                                                       ] .
+
+
+###  http://www.uia.no/jpn/tilt#DrugSimulatedInputData
+<http://www.uia.no/jpn/tilt#DrugSimulatedInputData> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#CodedSimulatedInputData> ,
+                                                                    [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty <http://www.uia.no/jpn/tilt#hasArticleNumber> ;
+                                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                      owl:onDataRange xsd:string
+                                                                    ] .
+
+
+###  http://www.uia.no/jpn/tilt#Finding_of_mental_alertness
+<http://www.uia.no/jpn/tilt#Finding_of_mental_alertness> rdf:type owl:Class ;
+                                                         owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                               owl:hasValue "365933000"^^xsd:long
+                                                                             ] ;
+                                                         rdfs:subClassOf <http://www.uia.no/jpn/tilt#Consciousness_and/or_awareness_finding> ;
+                                                         rdfs:comment """Finding of mental alertness (finding)
+
+SCTID: 365933000
+
+365933000 | Finding of mental alertness (finding) |
+  en   Mental alertness - finding
+  en   Finding of mental alertness (finding)
+  en   Finding of mental alertness""" .
+
+
+###  http://www.uia.no/jpn/tilt#Finding_of_rate_of_respiration_finding
+<http://www.uia.no/jpn/tilt#Finding_of_rate_of_respiration_finding> rdf:type owl:Class ;
+                                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                          owl:hasValue "301283003"^^xsd:long
+                                                                                        ] ;
+                                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding> ,
+                                                                                    [ rdf:type owl:Restriction ;
+                                                                                      owl:onProperty <http://www.uia.no/jpn/tilt#hasValue> ;
+                                                                                      owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                      owl:onClass <http://www.uia.no/jpn/tilt#Value>
+                                                                                    ] ;
+                                                                    rdfs:comment """Finding of rate of respiration (finding)
+
+SCTID: 301283003
+
+301283003 | Finding of rate of respiration (finding) |
+  en   Finding of rate of respiration
+  en   Finding of rate of respiration (finding)
+  en   Observation of rate of respiration""" .
+
+
+###  http://www.uia.no/jpn/tilt#Finding_of_response_to_pain
+<http://www.uia.no/jpn/tilt#Finding_of_response_to_pain> rdf:type owl:Class ;
+                                                         owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                               owl:hasValue "427304006"^^xsd:long
+                                                                             ] ;
+                                                         rdfs:subClassOf <http://www.uia.no/jpn/tilt#Pain> ;
+                                                         rdfs:comment """Finding of response to pain (finding)
+
+SCTID: 427304006
+
+427304006 | Finding of response to pain (finding) |
+  en   Finding of response to pain (finding)
+  en   Finding of response to pain""" .
+
+
+###  http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure
+<http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure> rdf:type owl:Class ;
+                                                                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                         owl:hasValue "301140001"^^xsd:long
+                                                                                       ] ;
+                                                                   rdfs:subClassOf <http://www.uia.no/jpn/tilt#Blood_pressure_finding> ;
+                                                                   rdfs:comment """Finding of systemic arterial pressure (finding)
+
+SCTID: 301140001
+
+301140001 | Finding of systemic arterial pressure (finding) |
+  en   Finding of systemic arterial pressure
+  en   Finding of systemic arterial pressure (finding)
+  en   Observation of systemic arterial pressure""" .
+
+
+###  http://www.uia.no/jpn/tilt#Finding_of_temperature_of_skin
+<http://www.uia.no/jpn/tilt#Finding_of_temperature_of_skin> rdf:type owl:Class ;
+                                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                  owl:hasValue "297976006"^^xsd:long
+                                                                                ] ;
+                                                            rdfs:subClassOf <http://www.uia.no/jpn/tilt#Body_temperature_finding> ,
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://www.uia.no/jpn/tilt#hasValue> ;
+                                                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                              owl:onClass <http://www.uia.no/jpn/tilt#Value>
+                                                                            ] ;
+                                                            rdfs:comment """Finding of temperature of skin (finding)
+
+SCTID: 297976006
+
+297976006 | Finding of temperature of skin (finding) |
+  en   Finding of temperature of skin
+  en   Finding of temperature of skin (finding)
+  en   Observation of temperature of skin""" .
+
+
+###  http://www.uia.no/jpn/tilt#Finding_related_to_abillity_to_process_information
+<http://www.uia.no/jpn/tilt#Finding_related_to_abillity_to_process_information> rdf:type owl:Class ;
+                                                                                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                      owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                                      owl:hasValue "365715000"^^xsd:long
+                                                                                                    ] ;
+                                                                                rdfs:subClassOf <http://www.uia.no/jpn/tilt#Cognitive_function_finding> ;
+                                                                                rdfs:comment """Finding related to ability to process information (finding)
+
+SCTID: 365715000
+
+365715000 | Finding related to ability to process information (finding) |
+  en   Finding related to ability to process information
+  en   Finding related to ability to process information (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Function
+<http://www.uia.no/jpn/tilt#Function> rdf:type owl:Class ;
+                                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                            owl:hasValue "246464006"^^xsd:long
+                                                          ] ;
+                                      rdfs:subClassOf <http://www.uia.no/jpn/tilt#Observable_entity> ;
+                                      rdfs:comment """Function (observable entity)
+
+SCTID: 246464006
+
+246464006 | Function (observable entity) |
+  en   Function (observable entity)
+  en   Function
+  en   Any function or property that is not mainly morphologic or structural, including both measurable and observable features and physiologic actions""" .
+
+
+###  http://www.uia.no/jpn/tilt#General_body_state_finding
+<http://www.uia.no/jpn/tilt#General_body_state_finding> rdf:type owl:Class ;
+                                                        owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                              owl:hasValue "82832008"^^xsd:long
+                                                                            ] ;
+                                                        rdfs:subClassOf <http://www.uia.no/jpn/tilt#General_finding_of_observation_of_patient> ;
+                                                        rdfs:comment """General body state finding (finding)
+
+SCTID: 82832008
+
+82832008 | General body state finding (finding) |
+  en   General body state finding
+  en   General body state finding (finding)
+  en   General well-being""" .
+
+
+###  http://www.uia.no/jpn/tilt#General_characteristic_of_patient
+<http://www.uia.no/jpn/tilt#General_characteristic_of_patient> rdf:type owl:Class ;
+                                                               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                     owl:hasValue "363789004"^^xsd:long
+                                                                                   ] ;
+                                                               rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_history_examination_observable> ;
+                                                               rdfs:comment """General characteristic of patient (observable entity)
+
+SCTID: 363789004
+
+363789004 | General characteristic of patient (observable entity) |
+  en   General characteristic of patient
+  en   General characteristic of patient (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#General_finding_of_observation_of_patient
+<http://www.uia.no/jpn/tilt#General_finding_of_observation_of_patient> rdf:type owl:Class ;
+                                                                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                             owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                             owl:hasValue "118222006"^^xsd:long
+                                                                                           ] ;
+                                                                       rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_history_and_observation_finding> ;
+                                                                       rdfs:comment """General finding of observation of patient (finding)
+
+SCTID: 118222006
+
+118222006 | General finding of observation of patient (finding) |
+  en   General finding of observation of patient
+  en   General observation of patient
+  en   General condition of patient
+  en   General finding of observation of patient (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Human
+<http://www.uia.no/jpn/tilt#Human> rdf:type owl:Class ;
+                                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasObservableEntity> ;
+                                                     owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass <http://www.uia.no/jpn/tilt#Observable_entity>
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasEstimatedHumanState> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass <http://www.uia.no/jpn/tilt#HumanState>
+                                                   ] .
+
+
+###  http://www.uia.no/jpn/tilt#HumanState
+<http://www.uia.no/jpn/tilt#HumanState> rdf:type owl:Class ;
+                                        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasCurrentVitalSigns> ;
+                                                          owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass <http://www.uia.no/jpn/tilt#Vital_sign_finding>
+                                                        ] .
+
+
+###  http://www.uia.no/jpn/tilt#Hyperpnea
+<http://www.uia.no/jpn/tilt#Hyperpnea> rdf:type owl:Class ;
+                                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                             owl:hasValue "180928006"^^xsd:long
+                                                           ] ;
+                                       rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding> ;
+                                       rdfs:comment """Hyperpnea (finding)
+
+SCTID: 180928006
+
+180928006 | Hyperpnea (finding) |
+  en   Hyperpnoea
+  en   Hyperpnea
+  en   Hyperpnea (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#InactiveIngredient
+<http://www.uia.no/jpn/tilt#InactiveIngredient> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.uia.no/jpn/tilt#Ingredient> ;
+                                                rdfs:comment "This class is supressed, no variables given. Class is then primitive" .
+
+
+###  http://www.uia.no/jpn/tilt#Ingredient
+<http://www.uia.no/jpn/tilt#Ingredient> rdf:type owl:Class ;
+                                        rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty <http://www.uia.no/jpn/tilt#hasAmountInOneDosageForm> ;
+                                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                 owl:onClass <http://www.uia.no/jpn/tilt#Value>
+                                                                               ]
+                                                                               [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty <http://www.uia.no/jpn/tilt#hasIngredientName> ;
+                                                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                 owl:onDataRange xsd:string
+                                                                               ]
+                                                                             ) ;
+                                                          rdf:type owl:Class
+                                                        ] ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasDrug> ;
+                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass <http://www.uia.no/jpn/tilt#Drug>
+                                                        ] .
+
+
+###  http://www.uia.no/jpn/tilt#Interaction
+<http://www.uia.no/jpn/tilt#Interaction> rdf:type owl:Class ;
+                                         rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasInteractionDescription> ;
+                                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                  owl:onDataRange xsd:string
+                                                                                ]
+                                                                                [ rdf:type owl:Restriction ;
+                                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasInteractionName> ;
+                                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                  owl:onDataRange xsd:string
+                                                                                ]
+                                                                              ) ;
+                                                           rdf:type owl:Class
+                                                         ] ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasDrugClasses> ;
+                                                           owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                           owl:onClass <http://www.uia.no/jpn/tilt#DrugClass>
+                                                         ] .
+
+
+###  http://www.uia.no/jpn/tilt#Mentalstate_state_finding
+<http://www.uia.no/jpn/tilt#Mentalstate_state_finding> rdf:type owl:Class ;
+                                                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                             owl:hasValue "36456004"^^xsd:long
+                                                                           ] ;
+                                                       rdfs:subClassOf <http://www.uia.no/jpn/tilt#Mental_state,_behavior_and/or_psychosocial_function_finding> ;
+                                                       rdfs:comment """Mental state finding (finding)
+
+SCTID: 36456004
+
+36456004 | Mental state finding (finding) |
+  en   Mental state
+  en   Mental status
+  en   Mental state finding
+  en   Mental state finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Neurological_finding
+<http://www.uia.no/jpn/tilt#Neurological_finding> rdf:type owl:Class ;
+                                                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                        owl:hasValue "102957003"^^xsd:long
+                                                                      ] ;
+                                                  rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_finding> ;
+                                                  rdfs:comment """Neurological finding (finding)
+
+SCTID: 102957003
+
+102957003 | Neurological finding (finding) |
+  en   Neurological finding
+  en   Neurological findings
+  en   Neurological observations
+  en   Neuro-obs
+  en   Neurological finding (finding)
+  en   Nervous system finding""" .
+
+
+###  http://www.uia.no/jpn/tilt#Normal_respiratory_rhythm
+<http://www.uia.no/jpn/tilt#Normal_respiratory_rhythm> rdf:type owl:Class ;
+                                                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                             owl:hasValue "5467003"^^xsd:long
+                                                                           ] ;
+                                                       rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding> ;
+                                                       rdfs:comment """Normal respiratory rhythm (finding)
+
+SCTID: 5467003
+
+5467003 | Normal respiratory rhythm (finding) |
+  en   Normal respiratory rhythm
+  en   Normal respiratory rhythm (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Observable_entity
+<http://www.uia.no/jpn/tilt#Observable_entity> rdf:type owl:Class ;
+                                               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                     owl:hasValue "363787002"^^xsd:long
+                                                                   ] ;
+                                               rdfs:subClassOf <http://www.uia.no/jpn/tilt#SNOMED_CT_CONCEPT> ;
+                                               rdfs:comment """Observable entity (observable entity)
+
+SCTID: 363787002
+
+363787002 | Observable entity (observable entity) |
+  en   Observable entity
+  en   Observable entity (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#On_examination_Arterial_pressure_index_abnormal
+<http://www.uia.no/jpn/tilt#On_examination_Arterial_pressure_index_abnormal> rdf:type owl:Class ;
+                                                                             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                   owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                                   owl:hasValue "310357009"^^xsd:long
+                                                                                                 ] ;
+                                                                             rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure> ;
+                                                                             rdfs:comment """On examination - Arterial pressure index abnormal (finding)
+
+SCTID: 310357009
+
+310357009 | On examination - Arterial pressure index abnormal (finding) |
+  en   O/E - Arterial pressure index abnormal
+  en   On examination - Arterial pressure index abnormal (finding)
+  en   On examination - Arterial pressure index abnormal""" .
+
+
+###  http://www.uia.no/jpn/tilt#On_examination_Arterial_pressure_index_normal
+<http://www.uia.no/jpn/tilt#On_examination_Arterial_pressure_index_normal> rdf:type owl:Class ;
+                                                                           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                 owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                                 owl:hasValue "310356000"^^xsd:long
+                                                                                               ] ;
+                                                                           rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure> ;
+                                                                           rdfs:comment """On examination - Arterial pressure index normal (finding)
+
+SCTID: 310356000
+
+310356000 | On examination - Arterial pressure index normal (finding) |
+  en   O/E - Arterial pressure index normal
+  en   On examination - Arterial pressure index normal (finding)
+  en   On examination - Arterial pressure index normal""" .
+
+
+###  http://www.uia.no/jpn/tilt#On_examination_Diastolic_blood_pressure_reading
+<http://www.uia.no/jpn/tilt#On_examination_Diastolic_blood_pressure_reading> rdf:type owl:Class ;
+                                                                             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                   owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                                   owl:hasValue "163031004"^^xsd:long
+                                                                                                 ] ;
+                                                                             rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure> ;
+                                                                             rdfs:comment """On examination - Diastolic blood pressure reading (finding)
+
+SCTID: 163031004
+
+163031004 | On examination - Diastolic blood pressure reading (finding) |
+  en   O/E - Diastolic BP reading
+  en   On examination - Diastolic blood pressure reading (finding)
+  en   On examination - Diastolic blood pressure reading
+  en   On examination - Diastolic BP reading""" .
+
+
+###  http://www.uia.no/jpn/tilt#On_examination_Systolic_blood_pressure_reading
+<http://www.uia.no/jpn/tilt#On_examination_Systolic_blood_pressure_reading> rdf:type owl:Class ;
+                                                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                                  owl:hasValue "163030003"^^xsd:long
+                                                                                                ] ;
+                                                                            rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure> ,
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://www.uia.no/jpn/tilt#hasValue> ;
+                                                                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                              owl:onClass <http://www.uia.no/jpn/tilt#Value>
+                                                                                            ] ;
+                                                                            rdfs:comment """On examination - Systolic blood pressure reading (finding)
+
+SCTID: 163030003
+
+163030003 | On examination - Systolic blood pressure reading (finding) |
+  en   O/E - Systolic BP reading
+  en   On examination - Systolic BP reading
+  en   On examination - Systolic blood pressure reading (finding)
+  en   On examination - Systolic blood pressure reading""" .
+
+
+###  http://www.uia.no/jpn/tilt#On_examination_initial_high_blood_pressure
+<http://www.uia.no/jpn/tilt#On_examination_initial_high_blood_pressure> rdf:type owl:Class ;
+                                                                        owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                              owl:hasValue "170581003"^^xsd:long
+                                                                                            ] ;
+                                                                        rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_systemic_arterial_pressure> ;
+                                                                        rdfs:comment """On examination - initial high blood pressure (finding)
+
+SCTID: 170581003
+
+170581003 | On examination - initial high blood pressure (finding) |
+  en   O/E - initial high BP
+  en   On examination - initial high blood pressure (finding)
+  en   On examination - initial high blood pressure
+  en   On examination - initial high BP""" .
+
+
+###  http://www.uia.no/jpn/tilt#Pain
+<http://www.uia.no/jpn/tilt#Pain> rdf:type owl:Class ;
+                                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                        owl:hasValue "22253000"^^xsd:long
+                                                      ] ;
+                                  rdfs:subClassOf <http://www.uia.no/jpn/tilt#Pain/sensation_finding> ;
+                                  rdfs:comment """Pain (finding)
+
+SCTID: 22253000
+
+22253000 | Pain (finding) |
+  en   Pain
+  en   Dolor
+  en   Painful
+  en   Part hurts
+  en   Pain (finding)
+  en   Pain observations""" .
+
+
+###  http://www.uia.no/jpn/tilt#Psychological_finding
+<http://www.uia.no/jpn/tilt#Psychological_finding> rdf:type owl:Class ;
+                                                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                         owl:hasValue "116367006"^^xsd:long
+                                                                       ] ;
+                                                   rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_history_and_observation_finding> ;
+                                                   rdfs:comment """Psychological finding (finding)
+
+SCTID: 116367006
+
+116367006 | Psychological finding (finding) |
+  en   Psychological finding
+  en   Psychological finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Pulse_finding
+<http://www.uia.no/jpn/tilt#Pulse_finding> rdf:type owl:Class ;
+                                           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                 owl:hasValue "366199006"^^xsd:long
+                                                               ] ;
+                                           rdfs:subClassOf <http://www.uia.no/jpn/tilt#Vital_sign_finding> ;
+                                           rdfs:comment """Pulse finding (finding)
+
+SCTID: 366199006
+
+366199006 | Pulse finding (finding) |
+  en   Pulse finding
+  en   Pulse finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Pulse_function
+<http://www.uia.no/jpn/tilt#Pulse_function> rdf:type owl:Class ;
+                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                  owl:hasValue "8499008"^^xsd:long
+                                                                ] ;
+                                            rdfs:subClassOf <http://www.uia.no/jpn/tilt#Cardiovascular_function> ;
+                                            rdfs:comment """Pulse, function (observable entity)
+
+SCTID: 8499008
+
+8499008 | Pulse, function (observable entity) |
+  en   Pulse
+  en   Pulse, function (observable entity)
+  en   Pulse, function""" .
+
+
+###  http://www.uia.no/jpn/tilt#Pulse_rate_finding
+<http://www.uia.no/jpn/tilt#Pulse_rate_finding> rdf:type owl:Class ;
+                                                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                      owl:hasValue "301147003"^^xsd:long
+                                                                    ] ;
+                                                rdfs:subClassOf <http://www.uia.no/jpn/tilt#Pulse_finding> ;
+                                                rdfs:comment """Pulse rate finding (finding)
+
+SCTID: 301147003
+
+301147003 | Pulse rate finding (finding) |
+  en   Pulse rate finding
+  en   Pulse rate finding (finding)
+  en   Observation of pulse rate""" .
+
+
+###  http://www.uia.no/jpn/tilt#Respiration_observable
+<http://www.uia.no/jpn/tilt#Respiration_observable> rdf:type owl:Class ;
+                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                          owl:hasValue "364062005"^^xsd:long
+                                                                        ] ;
+                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiratory_observable> ;
+                                                    rdfs:comment """Respiration observable (observable entity)
+
+SCTID: 364062005
+
+364062005 | Respiration observable (observable entity) |
+  en   Respiration observable
+  en   Respiration observable (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Respiratory_measure
+<http://www.uia.no/jpn/tilt#Respiratory_measure> rdf:type owl:Class ;
+                                                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                       owl:hasValue "251880004"^^xsd:long
+                                                                     ] ;
+                                                 rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiration_observable> ;
+                                                 rdfs:comment """Respiratory measure (observable entity)
+
+SCTID: 251880004
+
+251880004 | Respiratory measure (observable entity) |
+  en   Respiratory measure
+  en   Respiratory measurements
+  en   Respiratory measure (observable entity)
+  en   Observation of measures of respiratory function""" .
+
+
+###  http://www.uia.no/jpn/tilt#Respiratory_observable
+<http://www.uia.no/jpn/tilt#Respiratory_observable> rdf:type owl:Class ;
+                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                          owl:hasValue "364048003"^^xsd:long
+                                                                        ] ;
+                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_history_examination_observable> ;
+                                                    rdfs:comment """Respiratory observable (observable entity)
+
+SCTID: 364048003
+
+364048003 | Respiratory observable (observable entity) |
+  en   Respiratory observable
+  en   Respiratory observable (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Respiratory_rate
+<http://www.uia.no/jpn/tilt#Respiratory_rate> rdf:type owl:Class ;
+                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                    owl:hasValue "86290005"^^xsd:long
+                                                                  ] ;
+                                              rdfs:subClassOf <http://www.uia.no/jpn/tilt#Respiratory_measure> ;
+                                              rdfs:comment """Respiratory rate (observable entity)
+
+SCTID: 86290005
+
+86290005 | Respiratory rate (observable entity) |
+  en   Respiratory rate
+  en   Respiratory rate (observable entity)
+  en   BR - Breathing rate
+  en   Respiratory frequency
+  en   Breathing rate
+  en   RR - Respiratory rate
+  en   Rate of respiration""" .
+
+
+###  http://www.uia.no/jpn/tilt#Responds_to_pain
+<http://www.uia.no/jpn/tilt#Responds_to_pain> rdf:type owl:Class ;
+                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                    owl:hasValue "450847001"^^xsd:long
+                                                                  ] ;
+                                              rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_response_to_pain> ;
+                                              rdfs:comment """Responds to pain (finding)
+
+SCTID: 450847001
+
+450847001 | Responds to pain (finding) |
+  en   Responds to pain (finding)
+  en   Responds to pain""" .
+
+
+###  http://www.uia.no/jpn/tilt#SNOMED_CT_CONCEPT
+<http://www.uia.no/jpn/tilt#SNOMED_CT_CONCEPT> rdf:type owl:Class ;
+                                               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                     owl:hasValue "138875005"^^xsd:long
+                                                                   ] ;
+                                               rdfs:comment """SNOMED CT Concept (SNOMED RT+CTV3)
+
+SCTID: 138875005
+
+138875005 | SNOMED CT Concept (SNOMED RT+CTV3) |
+  en   SNOMED CT Concept
+  en   SNOMED CT Concept (SNOMED RT+CTV3)
+  en   SNOMED CT has been created by combining SNOMED RT and a computer-based nomenclature and classification known as Read Codes Version 3, which was created on behalf of the U.K. Department of Health.
+  en   © 2002-2018 International Health Terminology Standards Development Organisation (IHTSDO). All rights reserved. SNOMED CT®, was originally created by The College of American Pathologists. \"SNOMED\" and \"SNOMED CT\" are registered trademarks of the IHTSDO.
+  en   SNOMED Clinical Terms version: 20180731 [R] (July 2018 Release)""" ;
+                                               rdfs:seeAlso "http://browser.ihtsdotools.org/?perspective=full&conceptId1=138875005&edition=en-edition&release=v20180731&server=http://browser.ihtsdotools.org/api/v1/snomed&langRefset=900000000000509007" ;
+                                               owl:versionInfo "July 2018 Release" .
+
+
+###  http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput
+<http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.uia.no/jpn/tilt#CodedSimulatedInputData> .
+
+
+###  http://www.uia.no/jpn/tilt#Sensory_nervous_system_finding
+<http://www.uia.no/jpn/tilt#Sensory_nervous_system_finding> rdf:type owl:Class ;
+                                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                  owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                  owl:hasValue "106147001"^^xsd:long
+                                                                                ] ;
+                                                            rdfs:subClassOf <http://www.uia.no/jpn/tilt#Neurological_finding> ;
+                                                            rdfs:comment """Sensory nervous system finding (finding)
+
+SCTID: 106147001
+
+106147001 | Sensory nervous system finding (finding) |
+  en   Sensory nervous system finding
+  en   Sensory nervous system finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#SimulatedInputData
+<http://www.uia.no/jpn/tilt#SimulatedInputData> rdf:type owl:Class ;
+                                                rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasValue> ;
+                                                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                         owl:onClass <http://www.uia.no/jpn/tilt#Value>
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.uia.no/jpn/tilt#hasTypeName> ;
+                                                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                         owl:onDataRange xsd:string
+                                                                                       ]
+                                                                                     ) ;
+                                                                  rdf:type owl:Class
+                                                                ] .
+
+
+###  http://www.uia.no/jpn/tilt#SimulatedInputDataSequence
+<http://www.uia.no/jpn/tilt#SimulatedInputDataSequence> rdf:type owl:Class ;
+                                                        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSimulatedInputData> ;
+                                                                          owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                                                          owl:onClass <http://www.uia.no/jpn/tilt#SimulatedInputData>
+                                                                        ] ,
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasName> ;
+                                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                          owl:onDataRange xsd:string
+                                                                        ] .
+
+
+###  http://www.uia.no/jpn/tilt#Systolic_blood_pressure
+<http://www.uia.no/jpn/tilt#Systolic_blood_pressure> rdf:type owl:Class ;
+                                                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                           owl:hasValue "271649006"^^xsd:long
+                                                                         ] ;
+                                                     rdfs:subClassOf <http://www.uia.no/jpn/tilt#Blood_pressure> ,
+                                                                     <http://www.uia.no/jpn/tilt#Vascular_measure> ;
+                                                     rdfs:comment """Systolic blood pressure (observable entity)
+
+SCTID: 271649006
+
+271649006 | Systolic blood pressure (observable entity) |
+  en   Systolic blood pressure
+  en   Systolic blood pressure (observable entity)
+  en   SAP - Systolic arterial pressure""" .
+
+
+###  http://www.uia.no/jpn/tilt#Unresponsive
+<http://www.uia.no/jpn/tilt#Unresponsive> rdf:type owl:Class ;
+                                          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                owl:hasValue "422768004"^^xsd:long
+                                                              ] ;
+                                          rdfs:subClassOf <http://www.uia.no/jpn/tilt#Finding_of_mental_alertness> ;
+                                          rdfs:comment """Unresponsive (finding)
+
+SCTID: 422768004
+
+422768004 | Unresponsive (finding) |
+  en   Unresponsive (finding)
+  en   Unresponsive""" .
+
+
+###  http://www.uia.no/jpn/tilt#Value
+<http://www.uia.no/jpn/tilt#Value> rdf:type owl:Class ;
+                                   rdfs:subClassOf [ rdf:type owl:Class ;
+                                                     owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasValueValue> ;
+                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onDataRange xsd:string
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasTime> ;
+                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onDataRange xsd:long
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasValueType> ;
+                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onDataRange xsd:string
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.uia.no/jpn/tilt#hasValueUnit> ;
+                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onDataRange xsd:string
+                                                                   ]
+                                                                 )
+                                                   ] .
+
+
+###  http://www.uia.no/jpn/tilt#Vascular_measure
+<http://www.uia.no/jpn/tilt#Vascular_measure> rdf:type owl:Class ;
+                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                    owl:hasValue "252059006"^^xsd:long
+                                                                  ] ;
+                                              rdfs:subClassOf <http://www.uia.no/jpn/tilt#Blood_vessel_feature> ,
+                                                              <http://www.uia.no/jpn/tilt#Cardiovascular_mesure> ;
+                                              rdfs:comment """Vascular measure (observable entity)
+
+SCTID: 252059006
+
+252059006 | Vascular measure (observable entity) |
+  en   Vascular measure
+  en   Vascular measurements
+  en   Vascular measure (observable entity)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Vital_sign_finding
+<http://www.uia.no/jpn/tilt#Vital_sign_finding> rdf:type owl:Class ;
+                                                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                      owl:hasValue "118227000"^^xsd:long
+                                                                    ] ;
+                                                rdfs:subClassOf <http://www.uia.no/jpn/tilt#General_body_state_finding> ;
+                                                rdfs:comment """Vital signs finding (finding)
+
+SCTID: 118227000
+
+118227000 | Vital signs finding (finding) |
+  en   Vital signs finding
+  en   Vital signs finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Consciousness_and/or_awareness_finding
+<http://www.uia.no/jpn/tilt#Consciousness_and/or_awareness_finding> rdf:type owl:Class ;
+                                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                          owl:hasValue "365929007"^^xsd:long
+                                                                                        ] ;
+                                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Mentalstate_state_finding> ;
+                                                                    rdfs:comment """Consciousness and/or awareness finding (finding)
+
+SCTID: 365929007
+
+365929007 | Consciousness and/or awareness finding (finding) |
+  en   Consciousness and/or awareness finding
+  en   Consciousness and/or awareness finding (finding)""" .
+
+
+###  http://www.uia.no/jpn/tilt#Mental_state,_behavior_and/or_psychosocial_function_finding
+<http://www.uia.no/jpn/tilt#Mental_state,_behavior_and/or_psychosocial_function_finding> rdf:type owl:Class ;
+                                                                                         owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                               owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                                               owl:hasValue "384821006"^^xsd:long
+                                                                                                             ] ;
+                                                                                         rdfs:subClassOf <http://www.uia.no/jpn/tilt#Clinical_history_and_observation_finding> ;
+                                                                                         rdfs:comment """Mental state, behavior and/or psychosocial function finding (finding)
+
+SCTID: 384821006
+
+384821006 | Mental state, behavior and/or psychosocial function finding (finding) |
+  en   Mental state, behavior and/or psychosocial function finding (finding)
+  en   Mental state, behaviour and/or psychosocial function finding
+  en   Mental state, behavior and/or psychosocial function finding
+  en   Mental state, behaviour and/or psychosocial functioning observations
+  en   Mental state, behavior and/or psychosocial functioning observations""" .
+
+
+###  http://www.uia.no/jpn/tilt#Pain/sensation_finding
+<http://www.uia.no/jpn/tilt#Pain/sensation_finding> rdf:type owl:Class ;
+                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                          owl:hasValue "276435006"^^xsd:long
+                                                                        ] ;
+                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Sensory_nervous_system_finding> ;
+                                                    rdfs:comment """Pain / sensation finding (finding)
+
+SCTID: 276435006
+
+276435006 | Pain / sensation finding (finding) |
+  en   Pain / sensation finding
+  en   Pain / sensation finding (finding)
+  en   Pain and sensation""" .
+
+
+###  http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding
+<http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding> rdf:type owl:Class ;
+                                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                          owl:onProperty <http://www.uia.no/jpn/tilt#hasSCTID> ;
+                                                                                          owl:hasValue "106049001"^^xsd:long
+                                                                                        ] ;
+                                                                    rdfs:subClassOf <http://www.uia.no/jpn/tilt#Vital_sign_finding> ;
+                                                                    rdfs:comment """Respiratory rate AND/OR rhythm finding (finding)
+
+SCTID: 106049001
+
+106049001 | Respiratory rate AND/OR rhythm finding (finding) |
+  en   Respiratory rate AND/OR rhythm finding
+  en   Respiratory rate AND/OR rhythm finding (finding)""" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.uia.no/jpn/tilt#DrugClass_Analgesics
+<http://www.uia.no/jpn/tilt#DrugClass_Analgesics> rdf:type owl:NamedIndividual ,
+                                                           <http://www.uia.no/jpn/tilt#DrugClass> ;
+                                                  <http://www.uia.no/jpn/tilt#hasActiveIngredient> <http://www.uia.no/jpn/tilt#Drug_Euthyrox_ActiveIngredient_Levotyroksinnatrium> ;
+                                                  <http://www.uia.no/jpn/tilt#hasInteraction> <http://www.uia.no/jpn/tilt#WarfarinLevotyroksinnatriumInteraction> ;
+                                                  <http://www.uia.no/jpn/tilt#hasDrugClassName> "Analgesics" .
+
+
+###  http://www.uia.no/jpn/tilt#DrugClass_Warfarin
+<http://www.uia.no/jpn/tilt#DrugClass_Warfarin> rdf:type owl:NamedIndividual ,
+                                                         <http://www.uia.no/jpn/tilt#DrugClass> ;
+                                                <http://www.uia.no/jpn/tilt#hasActiveIngredient> <http://www.uia.no/jpn/tilt#Drug_Marevan_ActiveIngredient_Warfarinnatrium> ;
+                                                <http://www.uia.no/jpn/tilt#hasInteraction> <http://www.uia.no/jpn/tilt#WarfarinLevotyroksinnatriumInteraction> ;
+                                                <http://www.uia.no/jpn/tilt#hasDrugClassName> "Warfarin" .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Euthyrox_ActiveIngredient_Levotyroksinnatrium
+<http://www.uia.no/jpn/tilt#Drug_Euthyrox_ActiveIngredient_Levotyroksinnatrium> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.uia.no/jpn/tilt#ActiveIngredient> ;
+                                                                                <http://www.uia.no/jpn/tilt#hasDrug> <http://www.uia.no/jpn/tilt#Drug_Euthyrox_Drug> ;
+                                                                                <http://www.uia.no/jpn/tilt#hasDrugClass> <http://www.uia.no/jpn/tilt#DrugClass_Analgesics> ;
+                                                                                <http://www.uia.no/jpn/tilt#hasIngredientName> "Levotyroksinnatrium" .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Euthyrox_Drug
+<http://www.uia.no/jpn/tilt#Drug_Euthyrox_Drug> rdf:type owl:NamedIndividual ,
+                                                         <http://www.uia.no/jpn/tilt#Drug> ;
+                                                <http://www.uia.no/jpn/tilt#hasIngredient> <http://www.uia.no/jpn/tilt#Drug_Euthyrox_ActiveIngredient_Levotyroksinnatrium> ;
+                                                <http://www.uia.no/jpn/tilt#hasArticleNumber> "H03A A01" ;
+                                                <http://www.uia.no/jpn/tilt#hasDosageForm> "pills" ;
+                                                <http://www.uia.no/jpn/tilt#hasDrugName> "Euthyrox" ;
+                                                <http://www.uia.no/jpn/tilt#hasNumOfDosageForms> "individuell dosering. Pasienten trenger vanligvis bare 1 eller 2 tabletter daglig." .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Levaxin_ActiveIngredient
+<http://www.uia.no/jpn/tilt#Drug_Levaxin_ActiveIngredient> rdf:type owl:NamedIndividual ,
+                                                                    <http://www.uia.no/jpn/tilt#ActiveIngredient> ;
+                                                           <http://www.uia.no/jpn/tilt#hasAmountInOneDosageForm> <http://www.uia.no/jpn/tilt#Drug_Levaxin_Value> ;
+                                                           <http://www.uia.no/jpn/tilt#hasDrug> <http://www.uia.no/jpn/tilt#Drug_Levaxin_Drug> ;
+                                                           <http://www.uia.no/jpn/tilt#hasIngredientName> "laktosemonohydrat" .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Levaxin_Drug
+<http://www.uia.no/jpn/tilt#Drug_Levaxin_Drug> rdf:type owl:NamedIndividual ,
+                                                        <http://www.uia.no/jpn/tilt#Drug> ;
+                                               <http://www.uia.no/jpn/tilt#hasDefinedDailyDose> <http://www.uia.no/jpn/tilt#Drug_Levaxin_Value> ;
+                                               <http://www.uia.no/jpn/tilt#hasIngredient> <http://www.uia.no/jpn/tilt#Drug_Levaxin_ActiveIngredient> ;
+                                               <http://www.uia.no/jpn/tilt#hasArticleNumber> "H03A A01" ;
+                                               <http://www.uia.no/jpn/tilt#hasDosageForm> "pills" ;
+                                               <http://www.uia.no/jpn/tilt#hasDrugName> "Levaxin" ;
+                                               <http://www.uia.no/jpn/tilt#hasNumOfDosageForms> "Individuell dosering" .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Levaxin_Value
+<http://www.uia.no/jpn/tilt#Drug_Levaxin_Value> rdf:type owl:NamedIndividual ,
+                                                         <http://www.uia.no/jpn/tilt#Value> ;
+                                                <http://www.uia.no/jpn/tilt#hasValueUnit> "μg"^^xsd:string ;
+                                                <http://www.uia.no/jpn/tilt#hasValueValue> "25"^^xsd:string .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Marevan_ActiveIngredient_Warfarinnatrium
+<http://www.uia.no/jpn/tilt#Drug_Marevan_ActiveIngredient_Warfarinnatrium> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.uia.no/jpn/tilt#ActiveIngredient> ;
+                                                                           <http://www.uia.no/jpn/tilt#hasDrug> <http://www.uia.no/jpn/tilt#Drug_Marevan_Drug> ;
+                                                                           <http://www.uia.no/jpn/tilt#hasDrugClass> <http://www.uia.no/jpn/tilt#DrugClass_Warfarin> ;
+                                                                           <http://www.uia.no/jpn/tilt#hasIngredientName> "Warfarinnatrium" .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Marevan_Drug
+<http://www.uia.no/jpn/tilt#Drug_Marevan_Drug> rdf:type owl:NamedIndividual ,
+                                                        <http://www.uia.no/jpn/tilt#Drug> ;
+                                               <http://www.uia.no/jpn/tilt#hasIngredient> <http://www.uia.no/jpn/tilt#Drug_Marevan_ActiveIngredient_Warfarinnatrium> ,
+                                                                                          <http://www.uia.no/jpn/tilt#Drug_Marevan_InactiveIngredient_Lactose> ;
+                                               <http://www.uia.no/jpn/tilt#hasArticleNumber> "B01A A03" ;
+                                               <http://www.uia.no/jpn/tilt#hasDosageForm> "pills" ;
+                                               <http://www.uia.no/jpn/tilt#hasDrugName> "Marevan" ;
+                                               <http://www.uia.no/jpn/tilt#hasNumOfDosageForms> "Vanlig dose 1. og 2. dag er 3 tabletter (7,5 mg)." .
+
+
+###  http://www.uia.no/jpn/tilt#Drug_Marevan_InactiveIngredient_Lactose
+<http://www.uia.no/jpn/tilt#Drug_Marevan_InactiveIngredient_Lactose> rdf:type owl:NamedIndividual ,
+                                                                              <http://www.uia.no/jpn/tilt#InactiveIngredient> ;
+                                                                     <http://www.uia.no/jpn/tilt#hasDrug> <http://www.uia.no/jpn/tilt#Drug_Marevan_Drug> ;
+                                                                     <http://www.uia.no/jpn/tilt#hasIngredientName> "Lactose" .
+
+
+###  http://www.uia.no/jpn/tilt#Sim_1
+<http://www.uia.no/jpn/tilt#Sim_1> rdf:type owl:NamedIndividual ,
+                                            <http://www.uia.no/jpn/tilt#SimulatedInputDataSequence> .
+
+
+###  http://www.uia.no/jpn/tilt#WarfarinLevotyroksinnatriumInteraction
+<http://www.uia.no/jpn/tilt#WarfarinLevotyroksinnatriumInteraction> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.uia.no/jpn/tilt#Interaction> ;
+                                                                    <http://www.uia.no/jpn/tilt#hasDrugClasses> <http://www.uia.no/jpn/tilt#DrugClass_Analgesics> ,
+                                                                                                                <http://www.uia.no/jpn/tilt#DrugClass_Warfarin> ;
+                                                                    <http://www.uia.no/jpn/tilt#hasInteractionDescription> "Increased INR with raised probabillity of bleeding" ;
+                                                                    <http://www.uia.no/jpn/tilt#hasInteractionName> "Warfarin and Levotyroksinnatrium interaction" .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://www.uia.no/jpn/tilt#Value> rdfs:comment "We have already placed all the data properties to functional, so, in theory, we do not need to set the max to 1, it is implicit in the function functional. But for brevity, we add an extra layer of understanding." .
+
+
+owl:Thing rdfs:comment "This is the second oblig in the course IKT437 - deadline 9.10.18" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

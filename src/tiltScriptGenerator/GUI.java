@@ -201,10 +201,37 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			event[0] = (String) addEventTypeComboBox.getSelectedItem();
 			event[1] = addEventValue.getText();
 			event[2] = addEventTime.getText();
+			
+			float parsedFloat;
+			
+			try {
+				parsedFloat = Float.parseFloat(event[1]);
+			} catch(NumberFormatException e2) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid value.", "Warning", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			event[1] = String.valueOf(parsedFloat);
+			
+			int parsedInt;
+			
+			try {
+				parsedInt = Integer.parseInt(event[2]);
+			} catch(NumberFormatException e2) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid time value.", "Warning", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			event[2] = String.valueOf(parsedInt);
+			
 			if (addEventTypeComboBox.getSelectedIndex() != 0) {
 				this.addEvent(event);
 				this.showSaveWarning = true;
 			}
+			else 
+				JOptionPane.showMessageDialog(this, "Please select an event type.", "Warning", JOptionPane.WARNING_MESSAGE);
+			
+			
 			
 		} else if (e.getSource() == this.readEventsButton) {
 			System.out.println("Read events");
@@ -230,23 +257,46 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			
 		} else if (e.getSource() == this.editEventButton) {
 			System.out.println("Edit event");
-			List<String[]> triples = ModelHandler.getEventList();
-			boolean printOutput = true;
-			if (printOutput) {
-				for (String[] triple : triples) {
-					String output = "";
-					int formatSize = 40;
-					for (String s : triple) {
-						output += String.format("%-" + formatSize + "s", s);
-						formatSize = 10;
-					}
-					System.out.println(output);
-				}
-			}
 			
 		} else if (e.getSource() == this.saveScriptButton) {
 			System.out.println("Save script");
-			this.showSaveWarning = false;
+			
+			String individualName = JOptionPane.showInputDialog("Enter patient name");
+			
+			String prefixes = 
+					"PREFIX : <http://www.uia.no/jpn/tilt#>\n" +
+					"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+					"PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+					"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+					"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
+			
+			for (int i = 0; i < this.eventScriptTableModel.getRowCount(); i++) {
+				String[] event = new String[3];
+				for (int j = 0; j < this.eventScriptTableModel.getColumnCount(); j++) {
+					event[j] = (String) this.eventScriptTableModel.getValueAt(i, j);
+					System.out.print(event[j] + ", ");
+				}
+				System.out.println("");
+			}
+			
+			String queryText = prefixes +
+					"\nINSERT DATA {\n" +
+					":" + individualName + "\n" +
+					"rdf:type\n" +
+					":Human\n" +
+					"}";
+			
+			ModelHandler.execInsertQuery(queryText);
+			ModelHandler.writeFile("Bob");
+				
+			/*String queryText = "INSERT DATA {\n";
+			if (Integer.parseInt(event[2]) == 0) {
+				queryText += ":" + individualName + "\n" +
+						"rdf:type\n" +
+						":" + event[0] + "\n" +
+						"}";
+			}*/
+			System.out.println(queryText);
 		}
 	}
 	
@@ -269,22 +319,17 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 	public void showFileDialog() {
 		FileDialog fd = new FileDialog(jf, "Please choose patient-file:", FileDialog.LOAD);
 		
-		fd.setDirectory("/patients");
+		fd.setDirectory("./patients");
 		fd.setFile("*.ttl");
 		fd.setVisible(true);
 		
 		String filename = fd.getFile();
 		
 		if (filename == null) {
-			//System.out.println("You cancelled the choice");
 			return;
 		} else {
-<<<<<<< HEAD
-			//System.out.println("You chose " + filename);
-=======
 			filename = "patients/" + filename;
 			System.out.println("You chose " + filename);
->>>>>>> 94eca6332a7441ac892d9393e5eb7e56692844b6
 			
 			ModelHandler.setInputFileName(filename);
 			ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));

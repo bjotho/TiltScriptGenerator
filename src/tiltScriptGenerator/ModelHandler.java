@@ -1,6 +1,9 @@
 package tiltScriptGenerator;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,14 +19,18 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.sparql.core.DatasetGraph;
+import org.apache.jena.update.GraphStoreFactory;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
 import org.apache.jena.util.FileManager;
 
 public class ModelHandler {
-	private static String inputFileName = "patients/Hans.ttl";
+	private static String inputFileName = "patient.ttl";
 	private static String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
 	private static OntModel model;
 
@@ -35,7 +42,7 @@ public class ModelHandler {
 						"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
 	
 	public ModelHandler() {
-		model = readFile(OntModelSpec.OWL_DL_MEM);
+		ModelHandler.model = readFile(OntModelSpec.OWL_DL_MEM);
 	}
 	
 	public static List<String[]> getPatientName(String name) {
@@ -74,7 +81,7 @@ public class ModelHandler {
 		String selection = "?eventType ?valueValue ?time";
 		String queryText = prefixes +
 				"\nSELECT DISTINCT " + selection + "\n" +
-				"WHERE {\n" + 
+				"WHERE {\n" +
 				"?class rdfs:subClassOf :CodedSimulatedInputData.\n" +
 				"?finding a ?class.\n" +
 				"?finding :hasValue ?value.\n" +
@@ -176,54 +183,10 @@ public class ModelHandler {
 		return output;
 	}
 	
-	public static List<String[]> getInitialBodyTempReadings() {
-		Property hasSCTID = model.getProperty(defaultNameSpace + "hasSCTID");
-		//System.out.println("Created property: " + hasSCTID);
-		
-		//String format = "%-30s";
-		
-		ResIterator iter = model.listSubjectsWithProperty(hasSCTID);
-		//System.out.println("Iterating...\n");
-		
-		List<String[]> output = new ArrayList<String[]>();
-		
-		while (iter.hasNext()) {
-			Resource r = iter.nextResource();
-			if (r.hasProperty(hasSCTID, "297976006")) {
-				String[] event = new String[3];
-				//String valueTriple = String.format(format, r.getLocalName().toString());
-				//String timeTriple = String.format(format, r.getLocalName().toString());
-				Property hasValue = model.getProperty(defaultNameSpace + "hasValue");
-				//valueTriple += String.format(format, hasValue.getLocalName().toString());
-				RDFNode rValueNode = r.getProperty(hasValue).getObject();
-				Resource rValue = rValueNode.asResource();
-				Property hasValueValue = model.getProperty(defaultNameSpace + "hasValueValue");
-				Property hasTime = model.getProperty(defaultNameSpace + "hasTime");
-				//timeTriple += String.format(format, hasTime.getLocalName().toString());
-				RDFNode value = rValue.getProperty(hasValueValue).getObject();
-				RDFNode time = rValue.getProperty(hasTime).getObject();
-				//valueTriple += String.format(format, value.toString());
-				//timeTriple += String.format(format, time.toString());
-				Property hasTypeName = model.getProperty(defaultNameSpace + "hasTypeName");
-				try {
-					event[0] = r.getProperty(hasTypeName).getObject().toString();
-				} catch (NullPointerException e) {
-					try {
-						event[0] = rValue.getProperty(hasTypeName).getObject().toString();
-					} catch (NullPointerException e1) {
-						event[0] = r.getLocalName().toString();
-					}
-				}
-				event[1] = value.toString();
-				event[2] = time.toString();
-				//System.out.println(valueTriple);
-				//System.out.println(timeTriple + "\n");
-				output.add(event);
-			}
-		}
-		//System.out.println("Done\n");
-		
-		return output;
+	public static void execInsertQuery(String queryText) {
+		UpdateRequest update = UpdateFactory.create(queryText);
+		UpdateProcessor processor = UpdateExecutionFactory.create(update, GraphStoreFactory.create(model));
+		processor.execute();
 	}
 	
 	public static OntModel readFile(OntModelSpec ontModelSpec) {
@@ -235,6 +198,15 @@ public class ModelHandler {
 		}
 		ontModel.read(inFile, null, "Turtle");
 		return ontModel;
+	}
+	
+	public static void writeFile(String fileName) {
+		try {
+			OutputStream outFile = new FileOutputStream("./patients/" + fileName + ".ttl");
+			model.write(outFile, "Turtle");
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static String getInputFileName() {
