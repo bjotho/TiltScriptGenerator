@@ -23,7 +23,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.util.FileManager;
 
 public class ModelHandler {
-	private static String inputFileName = "uia_tilt_input.ttl";
+	private static String inputFileName = "patients/Hans.ttl";
 	private static String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
 	private static OntModel model;
 
