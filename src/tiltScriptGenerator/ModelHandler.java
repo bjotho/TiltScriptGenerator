@@ -21,7 +21,6 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.sparql.core.DatasetGraph;
 import org.apache.jena.update.GraphStoreFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
@@ -31,7 +30,6 @@ import org.apache.jena.util.FileManager;
 
 public class ModelHandler {
 	private static String inputFileName = "patient.ttl";
-	private static String defaultNameSpace = "http://www.uia.no/jpn/tilt#";
 	private static OntModel model;
 
 	private static String prefixes = 
@@ -45,16 +43,15 @@ public class ModelHandler {
 		ModelHandler.model = readFile(OntModelSpec.OWL_DL_MEM);
 	}
 	
-	public static List<String[]> getPatientName(String name) {
-		String selection = "?name";
+	public static String getPatientName() {
+		String selection = "?patient";
 		String queryText = prefixes +
-				"SELECT " + selection + "\n" +
-				"WHERE {\n" + 
-				"?human rdf:type :Human.\n" +
-				"?human :hasHumanName " + selection + ".\n" +
-				"FILTER (" + selection + " = \"" + name + "\").\n" +
+				"\nSELECT DISTINCT " + selection + "\n" +
+				"WHERE {\n" +
+				"?patient rdf:type :Human.\n" +
 				"}";
-		return execSelectQuery(queryText, selection);
+		List<String[]> queryOutput = execSelectQuery(queryText, selection);
+		return queryOutput.get(0)[0];
 	}
 	
 	public static List<String[]> getInitialFindings() {
@@ -104,7 +101,7 @@ public class ModelHandler {
 				"?subClass rdfs:subClassOf ?superClass.\n" +
 				"?subClass rdfs:subClassOf* :Vital_sign_finding.\n" +
 				"}";
-		//"FILTER (REGEX(STR(?superClass), \"#.+/\"))" +
+				//"FILTER (REGEX(STR(?superClass), \"#.+/\"))" +
 		List<String[]> queryOutput = execSelectQuery(queryText, selection);
 		List<String> subClass = new ArrayList<String>();
 		List<String> superClass = new ArrayList<String>();
@@ -183,7 +180,91 @@ public class ModelHandler {
 		return output;
 	}
 	
-	public static void execInsertQuery(String queryText) {
+	public static void insertHuman(String name, String address) {
+		String queryText = prefixes +
+			"\nINSERT DATA {\n" +
+			":" + name + " rdf:type" + " :Human.\n" +
+			"}";
+		ModelHandler.execDataQuery(queryText);
+		ModelHandler.insertHumanName(name);
+		ModelHandler.insertHumanAddress(name, address);
+	}
+	
+	public static void insertHumanName(String patient) {
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":" + patient + " :hasHumanName \"" + patient + "\"^^xsd:string.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void insertHumanAddress(String patient, String address) {
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":" + patient + " :hasHumanAddress \"" + address + "\"^^xsd:string.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void insertInitialFinding(String finding, String value) {
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":Human_Start_" + finding + " rdf:type :" + finding + ".\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+		ModelHandler.insertInitialValue(finding, value);
+		//ModelHandler.setInitialFindingSCTID(finding);
+	}
+	
+	public static void insertInitialValue(String finding, String value) {
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":Human_Start_" + finding + "_Value rdf:type :Value.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void setInitialFindingSCTID(String finding) {
+		String queryText = prefixes +
+				"INSERT\n" +
+				"{ :Human_Start_" + finding + " :hasSCTID ?sctid }\n" +
+				"WHERE {\n" +
+				":" + finding + " :hasSCTID ?sctid.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void insertSimulatedInput(String finding, String value, String time, int eventNumber) {
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":HumanData_" + Integer.toString(eventNumber) + " rdf:type :SNOWMEDCTSimulatedinput;\n" +
+				":hasTypeName \"" + finding + "\"^^xsd:string.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+		ModelHandler.insertSimulatedInputValue(finding, value, time, eventNumber);
+	}
+	
+	public static void insertSimulatedInputValue(String finding, String value, String time, int eventNumber) {
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":HumanData_" + Integer.toString(eventNumber) + "_Value rdf:type" + " :Value;\n" +
+				":hasValueType \"xsd:float\";\n" +
+				":hasValueValue \"" + value + "\"^^xsd:string;\n" +
+				":hasTime \"" + time + "\"^^xsd:string.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void deleteAllHumans() {
+		String queryText = prefixes +
+				"\nDELETE\n" +
+				"WHERE {\n" +
+				"?human rdf:type :Human.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void execDataQuery(String queryText) {
 		UpdateRequest update = UpdateFactory.create(queryText);
 		UpdateProcessor processor = UpdateExecutionFactory.create(update, GraphStoreFactory.create(model));
 		processor.execute();

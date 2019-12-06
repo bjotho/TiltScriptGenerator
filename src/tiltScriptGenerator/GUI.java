@@ -9,8 +9,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -24,8 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.border.Border;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -43,7 +41,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 	private JButton addEventButton;
 	private JButton readEventsButton;
 	private JButton removeEventsButton;
-	private JButton editEventButton;
+	private JButton newScriptButton;
 	private JButton saveScriptButton;
 	private DefaultTableModel eventScriptTableModel = new DefaultTableModel();
 	private JTable eventScriptTable;
@@ -133,13 +131,25 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		this.eventScriptTable = new JTable(this.eventScriptTableModel);
 		this.eventScriptTable.getModel().addTableModelListener(this);
 		
-		TableRowSorter<TableModel> sorter = new TableRowSorter<>(this.eventScriptTable.getModel());
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(this.eventScriptTable.getModel());
+		
+		Comparator<String> intComparator = new Comparator<String>() {
+		    public int compare(String s1, String s2) {
+	            return Integer.parseInt(s1) - Integer.parseInt(s2);
+		    }
+		};
+		
+		Comparator<String> floatComparator = new Comparator<String>() {
+		    public int compare(String s1, String s2) {
+		    	float s1Float = Float.parseFloat(s1);
+		    	float s2Float = Float.parseFloat(s2);
+	            return (int) ((s1Float * 100) - (s2Float * 100));
+		    }
+		};
+		
+		sorter.setComparator(2, intComparator);
+		sorter.setComparator(1, floatComparator);
 		this.eventScriptTable.setRowSorter(sorter);
-		List<RowSorter.SortKey> sortKeys = new ArrayList<>();
-		int columnIndexToSort = 2;
-		sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
-		sorter.setSortKeys(sortKeys);
-		sorter.sort();
 		
 		JScrollPane tableScroller = new JScrollPane(eventScriptTable);
 		tableScroller.setPreferredSize(new Dimension(eventScriptPanel.getSize().width, eventScriptPanel.getSize().height));
@@ -161,10 +171,10 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		removeEventsButton.addActionListener(this);
 		buttonPanel.add(removeEventsButton);
 		
-		this.editEventButton = new JButton("Edit event");
-		editEventButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
-		editEventButton.addActionListener(this);
-		buttonPanel.add(editEventButton);
+		this.newScriptButton = new JButton("New script");
+		newScriptButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
+		newScriptButton.addActionListener(this);
+		buttonPanel.add(newScriptButton);
 		
 		this.saveScriptButton = new JButton("Save script");
 		saveScriptButton.setPreferredSize(new Dimension((int) (jf.getSize().width*0.13), (int) (jf.getSize().height*0.05)));
@@ -189,115 +199,19 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			selectedEvents[i] = this.eventScriptTable.convertRowIndexToModel(selectedEvents[i]);
 			
 	        this.eventScriptTableModel.removeRow(selectedEvents[i]);
-	        this.showSaveWarning = true;
 	    }
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.addEventButton) {
-			System.out.println("Add event");
-			String[] event = new String[3];
-			event[0] = (String) addEventTypeComboBox.getSelectedItem();
-			event[1] = addEventValue.getText();
-			event[2] = addEventTime.getText();
-			
-			float parsedFloat;
-			
-			try {
-				parsedFloat = Float.parseFloat(event[1]);
-			} catch(NumberFormatException e2) {
-				JOptionPane.showMessageDialog(this, "Please enter a valid value.", "Warning", JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			
-			event[1] = String.valueOf(parsedFloat);
-			
-			int parsedInt;
-			
-			try {
-				parsedInt = Integer.parseInt(event[2]);
-			} catch(NumberFormatException e2) {
-				JOptionPane.showMessageDialog(this, "Please enter a valid time value.", "Warning", JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			
-			event[2] = String.valueOf(parsedInt);
-			
-			if (addEventTypeComboBox.getSelectedIndex() != 0) {
-				this.addEvent(event);
-				this.showSaveWarning = true;
-			}
-			else 
-				JOptionPane.showMessageDialog(this, "Please select an event type.", "Warning", JOptionPane.WARNING_MESSAGE);
-			
-			
-			
-		} else if (e.getSource() == this.readEventsButton) {
-			System.out.println("Read events");
-			int unsavedWarningSelection = 1;
-			if (showSaveWarning) {
-				//Display unsaved changes warning with selection to proceed or cancel
-				Object[] options = {"Cancel", "Discard"};
-				unsavedWarningSelection = JOptionPane.showOptionDialog(this,
-						"You have unsaved changes which will be lost if \nyou proceed to read a new file.\nAre you sure you wish to discard these changes?",
-						"Unsaved changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-			}
-			// If the user pressed "Discard", show a FileDialog where the user can choose a patient-file where events will be read from
-			if (unsavedWarningSelection == 1) {
-				showFileDialog();
-			}
-			
-		} else if (e.getSource() == this.removeEventsButton) {
-			System.out.println("Remove events");
-			
-			int[] selectedEvents = eventScriptTable.getSelectedRows();
-			removeEvents(selectedEvents);
-			//showSaveWarning = true;
-			
-		} else if (e.getSource() == this.editEventButton) {
-			System.out.println("Edit event");
-			
-		} else if (e.getSource() == this.saveScriptButton) {
-			System.out.println("Save script");
-			
-			String individualName = JOptionPane.showInputDialog("Enter patient name");
-			
-			String prefixes = 
-					"PREFIX : <http://www.uia.no/jpn/tilt#>\n" +
-					"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-					"PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-					"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-					"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
-			
-			for (int i = 0; i < this.eventScriptTableModel.getRowCount(); i++) {
-				String[] event = new String[3];
-				for (int j = 0; j < this.eventScriptTableModel.getColumnCount(); j++) {
-					event[j] = (String) this.eventScriptTableModel.getValueAt(i, j);
-					System.out.print(event[j] + ", ");
-				}
-				System.out.println("");
-			}
-			
-			String queryText = prefixes +
-					"\nINSERT DATA {\n" +
-					":" + individualName + "\n" +
-					"rdf:type\n" +
-					":Human\n" +
-					"}";
-			
-			ModelHandler.execInsertQuery(queryText);
-			ModelHandler.writeFile("Bob");
-				
-			/*String queryText = "INSERT DATA {\n";
-			if (Integer.parseInt(event[2]) == 0) {
-				queryText += ":" + individualName + "\n" +
-						"rdf:type\n" +
-						":" + event[0] + "\n" +
-						"}";
-			}*/
-			System.out.println(queryText);
+	
+	//Display unsaved changes warning with selection to proceed or cancel
+	//Returns integer corresponding to selected action
+	public int saveWarning() {
+		if (this.showSaveWarning) {
+			Object[] options = {"Cancel", "Discard"};
+			return JOptionPane.showOptionDialog(this,
+					"You have unsaved changes which will be lost if \nyou proceed to read a new file.\nAre you sure you wish to discard these changes?",
+					"Unsaved changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 		}
+		return 1;
 	}
 	
 	public void readEvents() {
@@ -311,8 +225,6 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		for (String[] triple : eventList) {
 			this.addEvent(triple);
 		}
-		
-		this.showSaveWarning = false;
 	}
 	
 	// Show a FileDialog where the user can choose a patient-file where events will be read from
@@ -328,7 +240,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		if (filename == null) {
 			return;
 		} else {
-			filename = "patients/" + filename;
+			filename = fd.getDirectory() + filename;
 			System.out.println("You chose " + filename);
 			
 			ModelHandler.setInputFileName(filename);
@@ -337,8 +249,131 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		}
 	}
 	
+	public void updateFrameTitle(String patient) {
+		this.jf.setTitle("Tilt Script Generator - " + patient);
+		jf.revalidate();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		///////////////////////////////////////////////Add event///////////////////////////////////////////////
+		
+		if (e.getSource() == this.addEventButton) {
+			System.out.println("Add event");
+			String[] event = new String[3];
+			event[0] = (String) addEventTypeComboBox.getSelectedItem();
+			event[1] = addEventValue.getText();
+			event[2] = addEventTime.getText();
+			
+			float parsedFloat;
+			
+			try {
+				parsedFloat = Float.parseFloat(event[1]);
+			} catch (NumberFormatException e2) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid value.", "Warning", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			event[1] = String.valueOf(parsedFloat);
+			
+			int parsedInt;
+			
+			try {
+				parsedInt = Integer.parseInt(event[2]);
+			} catch (NumberFormatException e2) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid time value.", "Warning", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			event[2] = String.valueOf(parsedInt);
+			
+			if (addEventTypeComboBox.getSelectedIndex() != 0) {
+				this.addEvent(event);
+			} else {
+				JOptionPane.showMessageDialog(this, "Please select an event type.", "Warning", JOptionPane.WARNING_MESSAGE);
+			}
+			
+		///////////////////////////////////////////////Read events///////////////////////////////////////////////
+			
+		} else if (e.getSource() == this.readEventsButton) {
+			System.out.println("Read events");
+			int unsavedWarningSelection = this.saveWarning();
+			// If the user pressed "Discard", show a FileDialog where the user can choose a patient-file where events will be read from
+			if (unsavedWarningSelection == 1) {
+				showFileDialog();
+			}
+			this.showSaveWarning = false;
+			String patientName = ModelHandler.getPatientName();
+			this.updateFrameTitle(patientName);
+			
+		///////////////////////////////////////////////Remove events///////////////////////////////////////////////
+			
+		} else if (e.getSource() == this.removeEventsButton) {
+			System.out.println("Remove events");
+			
+			int[] selectedEvents = eventScriptTable.getSelectedRows();
+			removeEvents(selectedEvents);
+			
+		///////////////////////////////////////////////New script///////////////////////////////////////////////
+			
+		} else if (e.getSource() == this.newScriptButton) {
+			System.out.println("New script");
+			int unsavedWarningSelection = this.saveWarning();
+			if (unsavedWarningSelection == 1) {
+				ModelHandler.setInputFileName("patient.ttl");
+				ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
+				this.eventScriptTableModel.setRowCount(0);
+				this.showSaveWarning = false;
+				this.updateFrameTitle("Unsaved script");
+			}
+			
+		///////////////////////////////////////////////Save script///////////////////////////////////////////////
+			
+		} else if (e.getSource() == this.saveScriptButton) {
+			System.out.println("Save script");
+			
+			String patientName = JOptionPane.showInputDialog("Enter patient name");
+			if (patientName == null) {
+				return;
+			}
+			String patientAddress = JOptionPane.showInputDialog("Enter patient address");
+			if (patientAddress == null) {
+				return;
+			}
+			ModelHandler.deleteAllHumans();
+			ModelHandler.insertHuman(patientName, patientAddress);
+			
+			System.out.println(patientName);
+			System.out.println(patientAddress);
+			
+			int simulatedInputNumber = 1;
+			
+			for (int i = 0; i < this.eventScriptTableModel.getRowCount(); i++) {
+				String[] event = new String[3];
+				for (int j = 0; j < this.eventScriptTableModel.getColumnCount(); j++) {
+					event[j] = (String) this.eventScriptTableModel.getValueAt(i, j);
+					System.out.print(event[j] + ", ");
+				}
+				System.out.println("");
+				if (Integer.parseInt(event[2]) == 0) {
+					ModelHandler.insertInitialFinding(event[0], event[1]);
+				} else {
+					ModelHandler.insertSimulatedInput(event[0], event[1], event[2], simulatedInputNumber);
+					simulatedInputNumber++;
+				}
+			}
+			ModelHandler.writeFile(patientName);
+			this.showSaveWarning = false;
+			this.updateFrameTitle(patientName);
+		}
+	}
+	
 	@Override
 	public void tableChanged(TableModelEvent e) {
-		this.showSaveWarning = true;
+		if (!this.showSaveWarning) {
+			this.showSaveWarning = true;
+			this.jf.setTitle("*" + this.jf.getTitle());
+		}
 	}
 }
