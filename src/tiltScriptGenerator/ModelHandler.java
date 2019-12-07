@@ -123,6 +123,19 @@ public class ModelHandler {
 		return subClass;
 	}
 	
+	public static String getFindingSCTID(String finding) {
+		String selection = "?sctidValue";
+		String selectQueryText = prefixes +
+				"\nSELECT DISTINCT " + selection + "\n" +
+				"WHERE {\n" +
+				"?finding rdfs:subClassOf* :Vital_sign_finding.\n" +
+				"?finding owl:equivalentClass ?sctid.\n" +
+				"?sctid owl:hasValue ?sctidValue.\n" +
+				"FILTER (?finding = :" + finding + ").\n" +
+				"}";
+		return ModelHandler.execSelectQuery(selectQueryText, selection).get(0)[0].split("\\^\\^")[0];
+	}
+	
 	public static List<String[]> execSelectQuery(String queryText, String selection) {
 		//Create select
 		Query query;
@@ -213,23 +226,18 @@ public class ModelHandler {
 				"}";
 		ModelHandler.execDataQuery(queryText);
 		ModelHandler.insertInitialValue(finding, value);
-		//ModelHandler.setInitialFindingSCTID(finding);
+		ModelHandler.insertHasValueProperty(finding, 0);
+		ModelHandler.insertFindingSCTID(finding, 0);
 	}
 	
 	public static void insertInitialValue(String finding, String value) {
+		String individual = ModelHandler.getIndividual(finding, 0);
 		String queryText = prefixes +
 				"\nINSERT DATA {\n" +
-				":Human_Start_" + finding + "_Value rdf:type :Value.\n" +
-				"}";
-		ModelHandler.execDataQuery(queryText);
-	}
-	
-	public static void setInitialFindingSCTID(String finding) {
-		String queryText = prefixes +
-				"INSERT\n" +
-				"{ :Human_Start_" + finding + " :hasSCTID ?sctid }\n" +
-				"WHERE {\n" +
-				":" + finding + " :hasSCTID ?sctid.\n" +
+				":" + individual + "_Value rdf:type :Value.\n" +
+				":" + individual + "_Value :hasValueType \"xsd:float\"^^xsd:string.\n" +
+				":" + individual + "_Value :hasTime \"0\"^^xsd:string.\n" +
+				":" + individual + "_Value :hasValueValue \"" + value + "\"^^xsd:string.\n" +
 				"}";
 		ModelHandler.execDataQuery(queryText);
 	}
@@ -242,6 +250,8 @@ public class ModelHandler {
 				"}";
 		ModelHandler.execDataQuery(queryText);
 		ModelHandler.insertSimulatedInputValue(finding, value, time, eventNumber);
+		ModelHandler.insertHasValueProperty(finding, eventNumber);
+		ModelHandler.insertFindingSCTID(finding, eventNumber);
 	}
 	
 	public static void insertSimulatedInputValue(String finding, String value, String time, int eventNumber) {
@@ -255,13 +265,41 @@ public class ModelHandler {
 		ModelHandler.execDataQuery(queryText);
 	}
 	
-	public static void deleteAllHumans() {
+	public static void insertHasValueProperty(String finding, int eventNumber) {
+		String individual = ModelHandler.getIndividual(finding, eventNumber);
 		String queryText = prefixes +
-				"\nDELETE\n" +
-				"WHERE {\n" +
-				"?human rdf:type :Human.\n" +
+				"\nINSERT DATA {\n" +
+				":" + individual + " :hasValue :" + individual + "_Value.\n" +
 				"}";
 		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static void insertFindingSCTID(String finding, int eventNumber) {
+		String individual = ModelHandler.getIndividual(finding, eventNumber);
+		String sctid = ModelHandler.getFindingSCTID(finding);
+		String insertQueryText = prefixes +
+				"INSERT DATA {\n" +
+				":" + individual + " :hasSCTID \"" + sctid + "\"^^xsd:long.\n" +
+				"}";
+		ModelHandler.execDataQuery(insertQueryText);
+	}
+	
+	public static void deleteAllHumans() {
+		String queryText = prefixes +
+				"\nDELETE {?human ?p ?o}\n" +
+				"WHERE {\n" +
+				"?human rdf:type :Human;\n" +
+				"?p ?o.\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
+	}
+	
+	public static String getIndividual(String finding, int eventNumber) {
+		String individual = "Human_Start_" + finding;
+		if (eventNumber > 0) {
+			individual = "HumanData_" + Integer.toString(eventNumber);
+		}
+		return individual;
 	}
 	
 	public static void execDataQuery(String queryText) {
@@ -296,6 +334,11 @@ public class ModelHandler {
 	
 	public static void setInputFileName(String fileName) {
 		ModelHandler.inputFileName = fileName;
+	}
+	
+	public static void resetModel() {
+		ModelHandler.inputFileName = "patient.ttl";
+		ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
 	}
 	
 	public static OntModel getModel() {

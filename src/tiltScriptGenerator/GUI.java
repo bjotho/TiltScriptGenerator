@@ -241,7 +241,6 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			return;
 		} else {
 			filename = fd.getDirectory() + filename;
-			System.out.println("You chose " + filename);
 			
 			ModelHandler.setInputFileName(filename);
 			ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
@@ -306,6 +305,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			this.showSaveWarning = false;
 			String patientName = ModelHandler.getPatientName();
 			this.updateFrameTitle(patientName);
+			ModelHandler.resetModel();
 			
 		///////////////////////////////////////////////Remove events///////////////////////////////////////////////
 			
@@ -344,18 +344,13 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			ModelHandler.deleteAllHumans();
 			ModelHandler.insertHuman(patientName, patientAddress);
 			
-			System.out.println(patientName);
-			System.out.println(patientAddress);
-			
 			int simulatedInputNumber = 1;
 			
 			for (int i = 0; i < this.eventScriptTableModel.getRowCount(); i++) {
 				String[] event = new String[3];
 				for (int j = 0; j < this.eventScriptTableModel.getColumnCount(); j++) {
 					event[j] = (String) this.eventScriptTableModel.getValueAt(i, j);
-					System.out.print(event[j] + ", ");
 				}
-				System.out.println("");
 				if (Integer.parseInt(event[2]) == 0) {
 					ModelHandler.insertInitialFinding(event[0], event[1]);
 				} else {
@@ -366,6 +361,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			ModelHandler.writeFile(patientName);
 			this.showSaveWarning = false;
 			this.updateFrameTitle(patientName);
+			ModelHandler.resetModel();
 		}
 	}
 	
