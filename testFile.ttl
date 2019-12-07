@@ -1,7 +1,0 @@
-<http://uia.no/termit/task#taskSet1>
-        <http://uia.no/termit/task#hasTask>
-                "do task one" .
-
-<http://uia.no/termit/task#taskSet2>
-        <http://uia.no/termit/task#hasTaskSetName>
-                "TASK SET NO. 1" .
