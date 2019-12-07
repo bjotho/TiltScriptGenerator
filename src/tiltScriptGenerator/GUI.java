@@ -304,6 +304,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			}
 			this.showSaveWarning = false;
 			String patientName = ModelHandler.getPatientName();
+			ModelHandler.setPatient(patientName);
 			this.updateFrameTitle(patientName);
 			ModelHandler.resetModel();
 			
@@ -321,6 +322,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			System.out.println("New script");
 			int unsavedWarningSelection = this.saveWarning();
 			if (unsavedWarningSelection == 1) {
+				ModelHandler.setPatient("Undefined");
 				ModelHandler.setInputFileName("patient.ttl");
 				ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
 				this.eventScriptTableModel.setRowCount(0);
@@ -341,7 +343,7 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 			if (patientAddress == null) {
 				return;
 			}
-			ModelHandler.deleteAllHumans();
+			ModelHandler.setPatient(patientName);
 			ModelHandler.insertHuman(patientName, patientAddress);
 			
 			int simulatedInputNumber = 1;

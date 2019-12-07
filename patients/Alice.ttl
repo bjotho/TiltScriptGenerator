@@ -6,22 +6,6 @@
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://www.uia.no/jpn/tilt#HumanData_4>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "180928006"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "Hyperpnea" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_4_Value> .
-
-<http://www.uia.no/jpn/tilt#Human_Start_Pulse_rate_finding>
-        a       <http://www.uia.no/jpn/tilt#Pulse_rate_finding> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "301147003"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#Human_Start_Pulse_rate_finding_Value> .
-
 <http://www.uia.no/jpn/tilt#Hyperpnea>
         a                    owl:Class ;
         rdfs:comment         "Hyperpnea (finding)\r\n\r\nSCTID: 180928006\r\n\r\n180928006 | Hyperpnea (finding) |\r\n  en   Hyperpnoea\r\n  en   Hyperpnea\r\n  en   Hyperpnea (finding)" ;
@@ -40,23 +24,14 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#Human_Start_Pulse_rate_finding_Value>
+<http://www.uia.no/jpn/tilt#AliceData_1_Value>
         a       <http://www.uia.no/jpn/tilt#Value> ;
         <http://www.uia.no/jpn/tilt#hasTime>
-                "0" ;
+                "1962" ;
         <http://www.uia.no/jpn/tilt#hasValueType>
                 "xsd:float" ;
         <http://www.uia.no/jpn/tilt#hasValueValue>
-                "90.0" .
-
-<http://www.uia.no/jpn/tilt#HumanData_2_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "26" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "110.0" .
+                "440.0" .
 
 <http://www.uia.no/jpn/tilt#hasHumanName>
         a            owl:DatatypeProperty ;
@@ -91,6 +66,15 @@
                 <http://www.uia.no/jpn/tilt#Drug_Levaxin_Drug> ;
         <http://www.uia.no/jpn/tilt#hasIngredientName>
                 "laktosemonohydrat" .
+
+<http://www.uia.no/jpn/tilt#AliceData_5>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "301147003"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "Pulse_rate_finding" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_5_Value> .
 
 <http://www.uia.no/jpn/tilt#Responds_to_pain>
         a                    owl:Class ;
@@ -128,15 +112,6 @@
         <http://www.uia.no/jpn/tilt#hasInteractionName>
                 "Warfarin and Levotyroksinnatrium interaction" .
 
-<http://www.uia.no/jpn/tilt#HumanData_10_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "3735" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "1717.17" .
-
 <http://www.uia.no/jpn/tilt#General_body_state_finding>
         a                    owl:Class ;
         rdfs:comment         "General body state finding (finding)\r\n\r\nSCTID: 82832008\r\n\r\n82832008 | General body state finding (finding) |\r\n  en   General body state finding\r\n  en   General body state finding (finding)\r\n  en   General well-being" ;
@@ -145,15 +120,6 @@
                                owl:hasValue    "82832008"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
-
-<http://www.uia.no/jpn/tilt#Human_Start_Finding_of_temperature_of_skin_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "0" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "30.0" .
 
 <http://www.uia.no/jpn/tilt#Finding_of_temperature_of_skin>
         a                    owl:Class ;
@@ -243,13 +209,6 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#Human_Start_Finding_of_temperature_of_skin>
-        a       <http://www.uia.no/jpn/tilt#Finding_of_temperature_of_skin> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "297976006"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#Human_Start_Finding_of_temperature_of_skin_Value> .
-
 <http://www.uia.no/jpn/tilt#hasAmountInOneDosageForm>
         a            owl:ObjectProperty ;
         rdfs:domain  <http://www.uia.no/jpn/tilt#Ingredient> ;
@@ -263,8 +222,6 @@
                                owl:hasValue    "250171008"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
-
-[ a       owl:Ontology ] .
 
 <http://www.uia.no/jpn/tilt#Value>
         a                owl:Class , owl:DatatypeProperty ;
@@ -302,14 +259,14 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_7>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "310356000"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "On_examination_Arterial_pressure_index_normal" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_7_Value> .
+<http://www.uia.no/jpn/tilt#AliceData_6_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "26" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "110.0" .
 
 <http://www.uia.no/jpn/tilt#Respiratory_rate>
         a                    owl:Class ;
@@ -353,14 +310,23 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_9_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "2345" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "765.0" .
+<http://www.uia.no/jpn/tilt#AliceData_8>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "5467003"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "Normal_respiratory_rhythm" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_8_Value> .
+
+<http://www.uia.no/jpn/tilt#AliceData_11>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "180928006"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "Hyperpnea" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_11_Value> .
 
 <http://www.uia.no/jpn/tilt#Drug_Euthyrox_Drug>
         a       <http://www.uia.no/jpn/tilt#Drug> , owl:NamedIndividual ;
@@ -379,6 +345,15 @@
         a                owl:Class ;
         rdfs:subClassOf  <http://www.uia.no/jpn/tilt#SimulatedInputData> .
 
+<http://www.uia.no/jpn/tilt#AliceData_4_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "4" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "36.0" .
+
 <http://www.uia.no/jpn/tilt#Cardiovascular_function>
         a                    owl:Class ;
         rdfs:comment         "Cardiovascular function (observable entity)\r\n\r\nSCTID: 70337006\r\n\r\n70337006 | Cardiovascular function (observable entity) |\r\n  en   Cardiovascular function\r\n  en   Cardiovascular function (observable entity)" ;
@@ -387,24 +362,6 @@
                                owl:hasValue    "70337006"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
-
-<http://www.uia.no/jpn/tilt#HumanData_5_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "625" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "103.0" .
-
-<http://www.uia.no/jpn/tilt#HumanData_2>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "301283003"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "Finding_of_rate_of_respiration_finding" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_2_Value> .
 
 <http://www.uia.no/jpn/tilt#Respiration_observable>
         a                    owl:Class ;
@@ -438,26 +395,8 @@
         rdfs:domain  <http://www.uia.no/jpn/tilt#Ingredient> ;
         rdfs:range   <http://www.uia.no/jpn/tilt#Drug> .
 
-<http://www.uia.no/jpn/tilt#HumanData_1_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "4" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "36.0" .
-
 <http://www.uia.no/jpn/tilt#Sim_1>
         a       <http://www.uia.no/jpn/tilt#SimulatedInputDataSequence> , owl:NamedIndividual .
-
-<http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding>
-        a                    owl:Class ;
-        rdfs:comment         "Respiratory rate AND/OR rhythm finding (finding)\r\n\r\nSCTID: 106049001\r\n\r\n106049001 | Respiratory rate AND/OR rhythm finding (finding) |\r\n  en   Respiratory rate AND/OR rhythm finding\r\n  en   Respiratory rate AND/OR rhythm finding (finding)" ;
-        rdfs:subClassOf      <http://www.uia.no/jpn/tilt#Vital_sign_finding> ;
-        owl:equivalentClass  [ a               owl:Restriction ;
-                               owl:hasValue    "106049001"^^xsd:long ;
-                               owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
-                             ] .
 
 <http://www.uia.no/jpn/tilt#DrugClass_Warfarin>
         a       <http://www.uia.no/jpn/tilt#DrugClass> , owl:NamedIndividual ;
@@ -467,6 +406,15 @@
                 "Warfarin" ;
         <http://www.uia.no/jpn/tilt#hasInteraction>
                 <http://www.uia.no/jpn/tilt#WarfarinLevotyroksinnatriumInteraction> .
+
+<http://www.uia.no/jpn/tilt#Respiratory_rate_AND/OR_rhythm_finding>
+        a                    owl:Class ;
+        rdfs:comment         "Respiratory rate AND/OR rhythm finding (finding)\r\n\r\nSCTID: 106049001\r\n\r\n106049001 | Respiratory rate AND/OR rhythm finding (finding) |\r\n  en   Respiratory rate AND/OR rhythm finding\r\n  en   Respiratory rate AND/OR rhythm finding (finding)" ;
+        rdfs:subClassOf      <http://www.uia.no/jpn/tilt#Vital_sign_finding> ;
+        owl:equivalentClass  [ a               owl:Restriction ;
+                               owl:hasValue    "106049001"^^xsd:long ;
+                               owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
+                             ] .
 
 <http://www.uia.no/jpn/tilt#Pulse_function>
         a                    owl:Class ;
@@ -491,14 +439,14 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_11>
+<http://www.uia.no/jpn/tilt#AliceData_3>
         a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
         <http://www.uia.no/jpn/tilt#hasSCTID>
-                "301147003"^^xsd:long ;
+                "170581003"^^xsd:long ;
         <http://www.uia.no/jpn/tilt#hasTypeName>
-                "Pulse_rate_finding" ;
+                "On_examination_initial_high_blood_pressure" ;
         <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_11_Value> .
+                <http://www.uia.no/jpn/tilt#AliceData_3_Value> .
 
 <http://www.uia.no/jpn/tilt#Drug_Marevan_Drug>
         a       <http://www.uia.no/jpn/tilt#Drug> , owl:NamedIndividual ;
@@ -545,6 +493,13 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
+<http://www.uia.no/jpn/tilt#Alice_Start_Pulse_rate_finding>
+        a       <http://www.uia.no/jpn/tilt#Pulse_rate_finding> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "301147003"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#Alice_Start_Pulse_rate_finding_Value> .
+
 <http://www.uia.no/jpn/tilt#Observable_entity>
         a                    owl:Class ;
         rdfs:comment         "Observable entity (observable entity)\r\n\r\nSCTID: 363787002\r\n\r\n363787002 | Observable entity (observable entity) |\r\n  en   Observable entity\r\n  en   Observable entity (observable entity)" ;
@@ -578,6 +533,15 @@
         rdfs:comment     "This class is supressed, no variables given. Class is then primitive" ;
         rdfs:subClassOf  <http://www.uia.no/jpn/tilt#Ingredient> .
 
+<http://www.uia.no/jpn/tilt#AliceData_9_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "1063" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "551.0" .
+
 <http://www.uia.no/jpn/tilt#Mentalstate_state_finding>
         a                    owl:Class ;
         rdfs:comment         "Mental state finding (finding)\r\n\r\nSCTID: 36456004\r\n\r\n36456004 | Mental state finding (finding) |\r\n  en   Mental state\r\n  en   Mental status\r\n  en   Mental state finding\r\n  en   Mental state finding (finding)" ;
@@ -586,15 +550,6 @@
                                owl:hasValue    "36456004"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
-
-<http://www.uia.no/jpn/tilt#HumanData_5>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "5467003"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "Normal_respiratory_rhythm" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_5_Value> .
 
 <http://www.uia.no/jpn/tilt#On_examination_Systolic_blood_pressure_reading>
         a                    owl:Class ;
@@ -674,6 +629,15 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
+<http://www.uia.no/jpn/tilt#AliceData_6>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "301283003"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "Finding_of_rate_of_respiration_finding" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_6_Value> .
+
 <http://www.uia.no/jpn/tilt#Respiratory_measure>
         a                    owl:Class ;
         rdfs:comment         "Respiratory measure (observable entity)\r\n\r\nSCTID: 251880004\r\n\r\n251880004 | Respiratory measure (observable entity) |\r\n  en   Respiratory measure\r\n  en   Respiratory measurements\r\n  en   Respiratory measure (observable entity)\r\n  en   Observation of measures of respiratory function" ;
@@ -685,15 +649,6 @@
 
 <http://www.uia.no/jpn/tilt#isAbout>
         a       owl:ObjectProperty .
-
-<http://www.uia.no/jpn/tilt#HumanData_8_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "1962" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "440.0" .
 
 <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput>
         a                owl:Class ;
@@ -713,20 +668,14 @@
         <http://www.uia.no/jpn/tilt#hasIngredientName>
                 "Warfarinnatrium" .
 
-<http://www.uia.no/jpn/tilt#HumanData_4_Value>
+<http://www.uia.no/jpn/tilt#AliceData_3_Value>
         a       <http://www.uia.no/jpn/tilt#Value> ;
         <http://www.uia.no/jpn/tilt#hasTime>
-                "295" ;
+                "3735" ;
         <http://www.uia.no/jpn/tilt#hasValueType>
                 "xsd:float" ;
         <http://www.uia.no/jpn/tilt#hasValueValue>
-                "50.3" .
-
-<http://www.uia.no/jpn/tilt#hasDosageForm>
-        a                   owl:FunctionalProperty , owl:DatatypeProperty ;
-        rdfs:domain         <http://www.uia.no/jpn/tilt#Drug> ;
-        rdfs:range          xsd:string ;
-        rdfs:subPropertyOf  owl:topDataProperty .
+                "1717.17" .
 
 <http://www.uia.no/jpn/tilt#Mental_state,_behavior_and/or_psychosocial_function_finding>
         a                    owl:Class ;
@@ -737,6 +686,21 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
+<http://www.uia.no/jpn/tilt#hasDosageForm>
+        a                   owl:FunctionalProperty , owl:DatatypeProperty ;
+        rdfs:domain         <http://www.uia.no/jpn/tilt#Drug> ;
+        rdfs:range          xsd:string ;
+        rdfs:subPropertyOf  owl:topDataProperty .
+
+<http://www.uia.no/jpn/tilt#AliceData_11_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "295" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "50.3" .
+
 <http://www.uia.no/jpn/tilt#Cardiovascular_mesure>
         a                    owl:Class ;
         rdfs:comment         "Cardiovascular measure (observable entity)\r\n\r\nSCTID: 310611001\r\n\r\n310611001 | Cardiovascular measure (observable entity) |\r\n  en   Cardiovascular measure\r\n  en   Cardiovascular measurement\r\n  en   Cardiovascular measure (observable entity)\r\n  en   Cardiovascular measurement - observation" ;
@@ -746,14 +710,14 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_8>
+<http://www.uia.no/jpn/tilt#AliceData_1>
         a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
         <http://www.uia.no/jpn/tilt#hasSCTID>
                 "163031004"^^xsd:long ;
         <http://www.uia.no/jpn/tilt#hasTypeName>
                 "On_examination_Diastolic_blood_pressure_reading" ;
         <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_8_Value> .
+                <http://www.uia.no/jpn/tilt#AliceData_1_Value> .
 
 <http://www.uia.no/jpn/tilt#Blood_pressure_finding>
         a                    owl:Class ;
@@ -771,14 +735,12 @@
         <http://www.uia.no/jpn/tilt#hasIngredientName>
                 "Lactose" .
 
-<http://www.uia.no/jpn/tilt#Human_Start_Finding_of_rate_of_respiration_finding_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "0" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "50.0" .
+<http://www.uia.no/jpn/tilt#Alice_Start_Finding_of_rate_of_respiration_finding>
+        a       <http://www.uia.no/jpn/tilt#Finding_of_rate_of_respiration_finding> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "301283003"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#Alice_Start_Finding_of_rate_of_respiration_finding_Value> .
 
 <http://www.uia.no/jpn/tilt#Drug_Euthyrox_ActiveIngredient_Levotyroksinnatrium>
         a       <http://www.uia.no/jpn/tilt#ActiveIngredient> , owl:NamedIndividual ;
@@ -788,6 +750,8 @@
                 <http://www.uia.no/jpn/tilt#DrugClass_Analgesics> ;
         <http://www.uia.no/jpn/tilt#hasIngredientName>
                 "Levotyroksinnatrium" .
+
+[ a       owl:Ontology ] .
 
 <http://www.uia.no/jpn/tilt#Blood_vessel_feature>
         a                    owl:Class ;
@@ -801,6 +765,15 @@
 <http://www.uia.no/jpn/tilt#ActiveIngredient>
         a                owl:Class ;
         rdfs:subClassOf  <http://www.uia.no/jpn/tilt#Ingredient> .
+
+<http://www.uia.no/jpn/tilt#AliceData_9>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "310357009"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "On_examination_Arterial_pressure_index_abnormal" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_9_Value> .
 
 <http://www.uia.no/jpn/tilt#Body_temperature_finding>
         a                    owl:Class ;
@@ -833,14 +806,16 @@
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_3>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "297976006"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "Finding_of_temperature_of_skin" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_3_Value> .
+<http://www.uia.no/jpn/tilt#AliceData_8_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "625" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "103.0" .
+
+owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadline 9.10.18" .
 
 <http://www.uia.no/jpn/tilt#Drug>
         a                owl:Class ;
@@ -899,7 +874,14 @@
                                                )
                          ] .
 
-owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadline 9.10.18" .
+<http://www.uia.no/jpn/tilt#AliceData_4>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "1023001"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "Apnea" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_4_Value> .
 
 <http://www.uia.no/jpn/tilt#hasName>
         a           owl:DatatypeProperty ;
@@ -964,6 +946,15 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                            owl:onProperty               <http://www.uia.no/jpn/tilt#hasActiveIngredient>
                          ] .
 
+<http://www.uia.no/jpn/tilt#Alice_Start_Finding_of_temperature_of_skin_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "0" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "30.0" .
+
 <http://www.uia.no/jpn/tilt#Finding_of_response_to_pain>
         a                    owl:Class ;
         rdfs:comment         "Finding of response to pain (finding)\r\n\r\nSCTID: 427304006\r\n\r\n427304006 | Finding of response to pain (finding) |\r\n  en   Finding of response to pain (finding)\r\n  en   Finding of response to pain" ;
@@ -977,15 +968,6 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
         a            owl:ObjectProperty ;
         rdfs:domain  <http://www.uia.no/jpn/tilt#ActiveIngredient> ;
         rdfs:range   <http://www.uia.no/jpn/tilt#DrugClass> .
-
-<http://www.uia.no/jpn/tilt#HumanData_7_Value>
-        a       <http://www.uia.no/jpn/tilt#Value> ;
-        <http://www.uia.no/jpn/tilt#hasTime>
-                "1538" ;
-        <http://www.uia.no/jpn/tilt#hasValueType>
-                "xsd:float" ;
-        <http://www.uia.no/jpn/tilt#hasValueValue>
-                "195.72" .
 
 <http://www.uia.no/jpn/tilt#Consciousness_and/or_awareness_finding>
         a                    owl:Class ;
@@ -1005,19 +987,22 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
+<http://www.uia.no/jpn/tilt#Alice_Start_Pulse_rate_finding_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "0" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "90.0" .
+
 <http://www.uia.no/jpn/tilt#hasSCTID>
         a                   owl:DatatypeProperty ;
         rdfs:domain         <http://www.uia.no/jpn/tilt#SNOMED_CT_CONCEPT> ;
         rdfs:range          xsd:long ;
         rdfs:subPropertyOf  owl:topDataProperty .
 
-<http://www.uia.no/jpn/tilt#hasTime>
-        a                   owl:FunctionalProperty , owl:DatatypeProperty ;
-        rdfs:domain         <http://www.uia.no/jpn/tilt#Value> ;
-        rdfs:range          xsd:long ;
-        rdfs:subPropertyOf  owl:topDataProperty .
-
-<http://www.uia.no/jpn/tilt#HumanData_3_Value>
+<http://www.uia.no/jpn/tilt#AliceData_2_Value>
         a       <http://www.uia.no/jpn/tilt#Value> ;
         <http://www.uia.no/jpn/tilt#hasTime>
                 "73" ;
@@ -1026,14 +1011,11 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
         <http://www.uia.no/jpn/tilt#hasValueValue>
                 "33.8" .
 
-<http://www.uia.no/jpn/tilt#HumanData_6>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "310357009"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "On_examination_Arterial_pressure_index_abnormal" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_6_Value> .
+<http://www.uia.no/jpn/tilt#hasTime>
+        a                   owl:FunctionalProperty , owl:DatatypeProperty ;
+        rdfs:domain         <http://www.uia.no/jpn/tilt#Value> ;
+        rdfs:range          xsd:long ;
+        rdfs:subPropertyOf  owl:topDataProperty .
 
 <http://www.uia.no/jpn/tilt#Cardiovascular_observable>
         a                    owl:Class ;
@@ -1043,6 +1025,15 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                                owl:hasValue    "364066008"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
+
+<http://www.uia.no/jpn/tilt#AliceData_10_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "2345" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "765.0" .
 
 <http://www.uia.no/jpn/tilt#SimulatedInputDataSequence>
         a                owl:Class ;
@@ -1105,6 +1096,15 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
         rdfs:range          xsd:string ;
         rdfs:subPropertyOf  owl:topDataProperty .
 
+<http://www.uia.no/jpn/tilt#AliceData_7>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "310356000"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "On_examination_Arterial_pressure_index_normal" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_7_Value> .
+
 <http://www.uia.no/jpn/tilt#Alice>
         a       <http://www.uia.no/jpn/tilt#Human> ;
         <http://www.uia.no/jpn/tilt#hasHumanAddress>
@@ -1147,6 +1147,15 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
         a           owl:InverseFunctionalProperty , owl:ObjectProperty ;
         rdfs:range  <http://www.uia.no/jpn/tilt#Value> .
 
+<http://www.uia.no/jpn/tilt#AliceData_10>
+        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "163030003"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasTypeName>
+                "On_examination_Systolic_blood_pressure_reading" ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#AliceData_10_Value> .
+
 <http://www.uia.no/jpn/tilt#On_examination_initial_high_blood_pressure>
         a                    owl:Class ;
         rdfs:comment         "On examination - initial high blood pressure (finding)\r\n\r\nSCTID: 170581003\r\n\r\n170581003 | On examination - initial high blood pressure (finding) |\r\n  en   O/E - initial high BP\r\n  en   On examination - initial high blood pressure (finding)\r\n  en   On examination - initial high blood pressure\r\n  en   On examination - initial high BP" ;
@@ -1156,14 +1165,14 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_11_Value>
+<http://www.uia.no/jpn/tilt#Alice_Start_Finding_of_rate_of_respiration_finding_Value>
         a       <http://www.uia.no/jpn/tilt#Value> ;
         <http://www.uia.no/jpn/tilt#hasTime>
-                "5000" ;
+                "0" ;
         <http://www.uia.no/jpn/tilt#hasValueType>
                 "xsd:float" ;
         <http://www.uia.no/jpn/tilt#hasValueValue>
-                "89.95" .
+                "50.0" .
 
 <http://www.uia.no/jpn/tilt#Unresponsive>
         a                    owl:Class ;
@@ -1173,15 +1182,6 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                                owl:hasValue    "422768004"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
-
-<http://www.uia.no/jpn/tilt#HumanData_1>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "1023001"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "Apnea" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_1_Value> .
 
 <http://www.uia.no/jpn/tilt#Interaction>
         a                owl:Class ;
@@ -1219,14 +1219,30 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_9>
+<http://www.uia.no/jpn/tilt#AliceData_7_Value>
+        a       <http://www.uia.no/jpn/tilt#Value> ;
+        <http://www.uia.no/jpn/tilt#hasTime>
+                "1538" ;
+        <http://www.uia.no/jpn/tilt#hasValueType>
+                "xsd:float" ;
+        <http://www.uia.no/jpn/tilt#hasValueValue>
+                "195.72" .
+
+<http://www.uia.no/jpn/tilt#AliceData_2>
         a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
         <http://www.uia.no/jpn/tilt#hasSCTID>
-                "163030003"^^xsd:long ;
+                "297976006"^^xsd:long ;
         <http://www.uia.no/jpn/tilt#hasTypeName>
-                "On_examination_Systolic_blood_pressure_reading" ;
+                "Finding_of_temperature_of_skin" ;
         <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_9_Value> .
+                <http://www.uia.no/jpn/tilt#AliceData_2_Value> .
+
+<http://www.uia.no/jpn/tilt#Alice_Start_Finding_of_temperature_of_skin>
+        a       <http://www.uia.no/jpn/tilt#Finding_of_temperature_of_skin> ;
+        <http://www.uia.no/jpn/tilt#hasSCTID>
+                "297976006"^^xsd:long ;
+        <http://www.uia.no/jpn/tilt#hasValue>
+                <http://www.uia.no/jpn/tilt#Alice_Start_Finding_of_temperature_of_skin_Value> .
 
 <http://www.uia.no/jpn/tilt#hasIngredientName>
         a                   owl:FunctionalProperty , owl:DatatypeProperty ;
@@ -1239,21 +1255,10 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
         rdfs:domain  <http://www.uia.no/jpn/tilt#SimulatedInputData> ;
         rdfs:range   xsd:string .
 
-<http://www.uia.no/jpn/tilt#Human_Start_Finding_of_rate_of_respiration_finding>
-        a       <http://www.uia.no/jpn/tilt#Finding_of_rate_of_respiration_finding> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "301283003"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#Human_Start_Finding_of_rate_of_respiration_finding_Value> .
-
-<http://www.uia.no/jpn/tilt#HumanData_10>
-        a       <http://www.uia.no/jpn/tilt#SNOWMEDCTSimulatedinput> ;
-        <http://www.uia.no/jpn/tilt#hasSCTID>
-                "170581003"^^xsd:long ;
-        <http://www.uia.no/jpn/tilt#hasTypeName>
-                "On_examination_initial_high_blood_pressure" ;
-        <http://www.uia.no/jpn/tilt#hasValue>
-                <http://www.uia.no/jpn/tilt#HumanData_10_Value> .
+<http://www.uia.no/jpn/tilt#hasCurrentVitalSigns>
+        a            owl:ObjectProperty ;
+        rdfs:domain  <http://www.uia.no/jpn/tilt#HumanState> ;
+        rdfs:range   <http://www.uia.no/jpn/tilt#Vital_sign_finding> .
 
 <http://www.uia.no/jpn/tilt#Finding_of_mental_alertness>
         a                    owl:Class ;
@@ -1263,11 +1268,6 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                                owl:hasValue    "365933000"^^xsd:long ;
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
-
-<http://www.uia.no/jpn/tilt#hasCurrentVitalSigns>
-        a            owl:ObjectProperty ;
-        rdfs:domain  <http://www.uia.no/jpn/tilt#HumanState> ;
-        rdfs:range   <http://www.uia.no/jpn/tilt#Vital_sign_finding> .
 
 <http://www.uia.no/jpn/tilt#Systolic_blood_pressure>
         a                    owl:Class ;
@@ -1293,11 +1293,11 @@ owl:Thing  rdfs:comment  "This is the second oblig in the course IKT437 - deadli
                                owl:onProperty  <http://www.uia.no/jpn/tilt#hasSCTID>
                              ] .
 
-<http://www.uia.no/jpn/tilt#HumanData_6_Value>
+<http://www.uia.no/jpn/tilt#AliceData_5_Value>
         a       <http://www.uia.no/jpn/tilt#Value> ;
         <http://www.uia.no/jpn/tilt#hasTime>
-                "1063" ;
+                "5000" ;
         <http://www.uia.no/jpn/tilt#hasValueType>
                 "xsd:float" ;
         <http://www.uia.no/jpn/tilt#hasValueValue>
-                "551.0" .
+                "89.95" .

@@ -30,6 +30,7 @@ import org.apache.jena.util.FileManager;
 
 public class ModelHandler {
 	private static String inputFileName = "patient.ttl";
+	private static String patient = "Undefined";
 	private static OntModel model;
 
 	private static String prefixes = 
@@ -222,7 +223,7 @@ public class ModelHandler {
 	public static void insertInitialFinding(String finding, String value) {
 		String queryText = prefixes +
 				"\nINSERT DATA {\n" +
-				":Human_Start_" + finding + " rdf:type :" + finding + ".\n" +
+				":" + ModelHandler.getPatient() + "_Start_" + finding + " rdf:type :" + finding + ".\n" +
 				"}";
 		ModelHandler.execDataQuery(queryText);
 		ModelHandler.insertInitialValue(finding, value);
@@ -245,7 +246,7 @@ public class ModelHandler {
 	public static void insertSimulatedInput(String finding, String value, String time, int eventNumber) {
 		String queryText = prefixes +
 				"\nINSERT DATA {\n" +
-				":HumanData_" + Integer.toString(eventNumber) + " rdf:type :SNOWMEDCTSimulatedinput;\n" +
+				":" + ModelHandler.getPatient() + "Data_" + Integer.toString(eventNumber) + " rdf:type :SNOWMEDCTSimulatedinput;\n" +
 				":hasTypeName \"" + finding + "\"^^xsd:string.\n" +
 				"}";
 		ModelHandler.execDataQuery(queryText);
@@ -257,7 +258,7 @@ public class ModelHandler {
 	public static void insertSimulatedInputValue(String finding, String value, String time, int eventNumber) {
 		String queryText = prefixes +
 				"\nINSERT DATA {\n" +
-				":HumanData_" + Integer.toString(eventNumber) + "_Value rdf:type" + " :Value;\n" +
+				":" + ModelHandler.getPatient() + "Data_" + Integer.toString(eventNumber) + "_Value rdf:type" + " :Value;\n" +
 				":hasValueType \"xsd:float\";\n" +
 				":hasValueValue \"" + value + "\"^^xsd:string;\n" +
 				":hasTime \"" + time + "\"^^xsd:string.\n" +
@@ -284,20 +285,10 @@ public class ModelHandler {
 		ModelHandler.execDataQuery(insertQueryText);
 	}
 	
-	public static void deleteAllHumans() {
-		String queryText = prefixes +
-				"\nDELETE {?human ?p ?o}\n" +
-				"WHERE {\n" +
-				"?human rdf:type :Human;\n" +
-				"?p ?o.\n" +
-				"}";
-		ModelHandler.execDataQuery(queryText);
-	}
-	
 	public static String getIndividual(String finding, int eventNumber) {
-		String individual = "Human_Start_" + finding;
+		String individual = ModelHandler.getPatient() + "_Start_" + finding;
 		if (eventNumber > 0) {
-			individual = "HumanData_" + Integer.toString(eventNumber);
+			individual = ModelHandler.getPatient() + "Data_" + Integer.toString(eventNumber);
 		}
 		return individual;
 	}
@@ -329,11 +320,19 @@ public class ModelHandler {
 	}
 	
 	public static String getInputFileName() {
-		return inputFileName;
+		return ModelHandler.inputFileName;
 	}
 	
 	public static void setInputFileName(String fileName) {
 		ModelHandler.inputFileName = fileName;
+	}
+	
+	public static String getPatient() {
+		return ModelHandler.patient;
+	}
+	
+	public static void setPatient(String patient) {
+		ModelHandler.patient = patient;
 	}
 	
 	public static void resetModel() {
