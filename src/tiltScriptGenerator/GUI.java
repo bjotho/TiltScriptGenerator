@@ -296,7 +296,6 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		///////////////////////////////////////////////Read events///////////////////////////////////////////////
 			
 		} else if (e.getSource() == this.readEventsButton) {
-			System.out.println("Read events");
 			int unsavedWarningSelection = this.saveWarning();
 			// If the user pressed "Discard", show a FileDialog where the user can choose a patient-file where events will be read from
 			if (unsavedWarningSelection == 1) {
@@ -311,15 +310,12 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		///////////////////////////////////////////////Remove events///////////////////////////////////////////////
 			
 		} else if (e.getSource() == this.removeEventsButton) {
-			System.out.println("Remove events");
-			
 			int[] selectedEvents = eventScriptTable.getSelectedRows();
 			removeEvents(selectedEvents);
 			
 		///////////////////////////////////////////////New script///////////////////////////////////////////////
 			
 		} else if (e.getSource() == this.newScriptButton) {
-			System.out.println("New script");
 			int unsavedWarningSelection = this.saveWarning();
 			if (unsavedWarningSelection == 1) {
 				ModelHandler.setPatient("Undefined");
@@ -333,8 +329,6 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		///////////////////////////////////////////////Save script///////////////////////////////////////////////
 			
 		} else if (e.getSource() == this.saveScriptButton) {
-			System.out.println("Save script");
-			
 			String patientName = JOptionPane.showInputDialog("Enter patient name");
 			if (patientName == null) {
 				return;

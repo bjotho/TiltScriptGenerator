@@ -21,11 +21,7 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.update.GraphStoreFactory;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
+import org.apache.jena.update.UpdateAction;
 import org.apache.jena.util.FileManager;
 
 public class ModelHandler {
@@ -294,9 +290,7 @@ public class ModelHandler {
 	}
 	
 	public static void execDataQuery(String queryText) {
-		UpdateRequest update = UpdateFactory.create(queryText);
-		UpdateProcessor processor = UpdateExecutionFactory.create(update, GraphStoreFactory.create(model));
-		processor.execute();
+		UpdateAction.parseExecute(queryText, ModelHandler.model);
 	}
 	
 	public static OntModel readFile(OntModelSpec ontModelSpec) {
