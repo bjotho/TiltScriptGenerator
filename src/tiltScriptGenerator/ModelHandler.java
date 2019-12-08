@@ -290,7 +290,7 @@ public class ModelHandler {
 	}
 	
 	public static void execDataQuery(String queryText) {
-		UpdateAction.parseExecute(queryText, ModelHandler.model);
+		UpdateAction.parseExecute(queryText, ModelHandler.model.getGraph());
 	}
 	
 	public static OntModel readFile(OntModelSpec ontModelSpec) {
