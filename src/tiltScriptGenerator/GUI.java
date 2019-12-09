@@ -259,7 +259,6 @@ public class GUI extends JFrame implements ActionListener, TableModelListener {
 		///////////////////////////////////////////////Add event///////////////////////////////////////////////
 		
 		if (e.getSource() == this.addEventButton) {
-			System.out.println("Add event");
 			String[] event = new String[3];
 			event[0] = (String) addEventTypeComboBox.getSelectedItem();
 			event[1] = addEventValue.getText();

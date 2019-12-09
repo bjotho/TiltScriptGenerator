@@ -231,10 +231,11 @@ public class ModelHandler {
 		String individual = ModelHandler.getIndividual(finding, 0);
 		String queryText = prefixes +
 				"\nINSERT DATA {\n" +
-				":" + individual + "_Value rdf:type :Value.\n" +
-				":" + individual + "_Value :hasValueType \"xsd:float\"^^xsd:string.\n" +
-				":" + individual + "_Value :hasTime \"0\"^^xsd:string.\n" +
-				":" + individual + "_Value :hasValueValue \"" + value + "\"^^xsd:string.\n" +
+				":" + individual + "_Value rdf:type :Value;\n" +
+				":hasValueType \"xsd:float\"^^xsd:string;\n" +
+				":hasTime \"0\"^^xsd:string;\n" +
+				":hasValueValue \"" + value + "\"^^xsd:string;\n" +
+				":hasValueUnit \"Unit\"^^xsd:string.\n" +
 				"}";
 		ModelHandler.execDataQuery(queryText);
 	}
@@ -249,15 +250,18 @@ public class ModelHandler {
 		ModelHandler.insertSimulatedInputValue(finding, value, time, eventNumber);
 		ModelHandler.insertHasValueProperty(finding, eventNumber);
 		ModelHandler.insertFindingSCTID(finding, eventNumber);
+		ModelHandler.insertSimPropertyAssertions(finding, eventNumber);
 	}
 	
 	public static void insertSimulatedInputValue(String finding, String value, String time, int eventNumber) {
+		String individual = ModelHandler.getIndividual(finding, eventNumber);
 		String queryText = prefixes +
 				"\nINSERT DATA {\n" +
-				":" + ModelHandler.getPatient() + "Data_" + Integer.toString(eventNumber) + "_Value rdf:type" + " :Value;\n" +
+				":" + individual + "_Value rdf:type" + " :Value;\n" +
 				":hasValueType \"xsd:float\";\n" +
 				":hasValueValue \"" + value + "\"^^xsd:string;\n" +
-				":hasTime \"" + time + "\"^^xsd:string.\n" +
+				":hasTime \"" + time + "\"^^xsd:string;\n" +
+				":hasValueUnit \"Unit\"^^xsd:string.\n" +
 				"}";
 		ModelHandler.execDataQuery(queryText);
 	}
@@ -275,7 +279,7 @@ public class ModelHandler {
 		String individual = ModelHandler.getIndividual(finding, eventNumber);
 		String sctid = ModelHandler.getFindingSCTID(finding);
 		String insertQueryText = prefixes +
-				"INSERT DATA {\n" +
+				"\nINSERT DATA {\n" +
 				":" + individual + " :hasSCTID \"" + sctid + "\"^^xsd:long.\n" +
 				"}";
 		ModelHandler.execDataQuery(insertQueryText);
@@ -287,6 +291,15 @@ public class ModelHandler {
 			individual = ModelHandler.getPatient() + "Data_" + Integer.toString(eventNumber);
 		}
 		return individual;
+	}
+	
+	public static void insertSimPropertyAssertions(String finding, int eventNumber) {
+		String individual = ModelHandler.getIndividual(finding, eventNumber);
+		String queryText = prefixes +
+				"\nINSERT DATA {\n" +
+				":Sim_1 :hasSimulatedInputData :" + individual + ".\n" +
+				"}";
+		ModelHandler.execDataQuery(queryText);
 	}
 	
 	public static void execDataQuery(String queryText) {
