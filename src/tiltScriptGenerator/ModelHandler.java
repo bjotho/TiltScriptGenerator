@@ -327,16 +327,16 @@ public class ModelHandler {
 		ModelHandler.patient = patient;
 	}
 	
-	public static void resetModel() {
-		ModelHandler.inputFileName = "patient.ttl";
-		ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
-	}
-	
 	public static OntModel getModel() {
 		return model;
 	}
 
 	public static void setModel(OntModel model) {
 		ModelHandler.model = model;
+	}
+	
+	public static void resetModel() {
+		ModelHandler.inputFileName = "patient.ttl";
+		ModelHandler.setModel(ModelHandler.readFile(OntModelSpec.OWL_DL_MEM));
 	}
 }
