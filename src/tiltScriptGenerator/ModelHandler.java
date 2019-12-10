@@ -193,26 +193,10 @@ public class ModelHandler {
 	public static void insertHuman(String name, String address) {
 		String queryText = prefixes +
 			"\nINSERT DATA {\n" +
-			":" + name + " rdf:type" + " :Human.\n" +
+			":" + name + " rdf:type :Human;\n" +
+			":hasHumanName \"" + name + "\"^^xsd:string;\n" +
+			":hasHumanAddress \"" + address + "\"^^xsd:string.\n" +
 			"}";
-		ModelHandler.execDataQuery(queryText);
-		ModelHandler.insertHumanName(name);
-		ModelHandler.insertHumanAddress(name, address);
-	}
-	
-	public static void insertHumanName(String patient) {
-		String queryText = prefixes +
-				"\nINSERT DATA {\n" +
-				":" + patient + " :hasHumanName \"" + patient + "\"^^xsd:string.\n" +
-				"}";
-		ModelHandler.execDataQuery(queryText);
-	}
-	
-	public static void insertHumanAddress(String patient, String address) {
-		String queryText = prefixes +
-				"\nINSERT DATA {\n" +
-				":" + patient + " :hasHumanAddress \"" + address + "\"^^xsd:string.\n" +
-				"}";
 		ModelHandler.execDataQuery(queryText);
 	}
 	
@@ -319,7 +303,8 @@ public class ModelHandler {
 	
 	public static void writeFile(String fileName) {
 		try {
-			OutputStream outFile = new FileOutputStream("./patients/" + fileName + ".ttl");
+			System.out.println(fileName);
+			OutputStream outFile = new FileOutputStream("patients/" + fileName + ".ttl");
 			model.write(outFile, "Turtle");
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
